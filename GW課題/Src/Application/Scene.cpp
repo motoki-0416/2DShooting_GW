@@ -220,11 +220,12 @@ void Scene::CreateManager(int a_eve)
 			m_enemy.push_back(tmpA);
 			bossFlg = true;
 		}
-
-		break;
+		return;
 	default:
 		break;
 	}
+
+	return;
 
 	static int mDelay = 0;
 	if (mDelay <= 0)
@@ -284,12 +285,10 @@ void Scene::DeleteManager(bool a_bFlg)
 		if ((!(*en)->GetAlive() && (*en)->GetSize() <= 0) || a_bFlg)
 		{
 			//’†ƒ{ƒX‚ð“|‚·‚Æ
-			if ((*en)->GetType() == enemyBoss)
+			if ((*en)->GetType() == enemyMiniBoss)
 			{
 				m_event->SetStopFlg(true);
 			}
-
-			en->reset();
 			en = m_enemy.erase(en);
 		}
 		else
@@ -303,12 +302,10 @@ void Scene::HitManager()
 {
 	for (int i = 0; i < m_enemy.size(); i++)
 	{
-		
 		//“G‚ÆŽ©‹@‚Ì“–‚½‚è”»’è
 		m_enemy[i]->PlayerCD(m_player);
 		m_enemy[i]->HitCheckBullet(m_player);
 	}
-
 }
 
 void Scene::LoadTex()
@@ -328,7 +325,8 @@ void Scene::LoadTex()
 	m_bossTex.bossTex.Load("Texture/Boss.png");
 	m_bossTex.cannonUTex.Load("Texture/cannonU.png");
 	m_bossTex.cannonDTex.Load("Texture/cannonD.png");
-
+	m_bossTex.voltTex.Load("Texture/volt.png");
+	m_bossTex.missileTex.Load("Texture/missile.png");
 
 	m_eventTex.eventStartTex.Load("Texture/player.png");
 
@@ -427,6 +425,8 @@ void Scene::Release()
 	m_bossTex.bossTex.Release();
 	m_bossTex.cannonUTex.Release();
 	m_bossTex.cannonDTex.Release();
+	m_bossTex.voltTex.Release();
+	m_bossTex.missileTex.Release();
 
 	miniBossTex.Release();
 	m_eventTex.eventStartTex.Release();

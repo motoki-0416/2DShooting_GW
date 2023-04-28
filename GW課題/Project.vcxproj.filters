@@ -100,6 +100,15 @@
     <Filter Include="Src\Application\Program\Button">
       <UniqueIdentifier>{bb23fde6-e1d3-473b-854d-21e1c1637217}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Particle\volt">
+      <UniqueIdentifier>{60d846dd-3c1f-408b-9d21-18496f1b88b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Oblect\Bullet">
+      <UniqueIdentifier>{33942126-cc3f-42b2-8cec-5e0158dac80d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Oblect\Bullet\Missile">
+      <UniqueIdentifier>{cdf3ea18-bce4-4596-98e5-ab094825dbfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -195,9 +204,6 @@
     <ClInclude Include="Src\Application\Scene.h">
       <Filter>Src\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\bullet.h">
-      <Filter>Src\Application</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Utility.h">
       <Filter>Src\Application</Filter>
     </ClInclude>
@@ -264,6 +270,21 @@
     <ClInclude Include="Src\Application\Program\Button\Program_Button.h">
       <Filter>Src\Application\Program\Button</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Particle\volt\volt.h">
+      <Filter>Src\Application\Particle\volt</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Bullet\bullet.h">
+      <Filter>Src\Application\Oblect\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Bullet\Missile\Missile.h">
+      <Filter>Src\Application\Oblect\Bullet\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Bullet\BaseBullet.h">
+      <Filter>Src\Application\Oblect\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Enemy\Boss\Cannon.h">
+      <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -329,9 +350,6 @@
     <ClCompile Include="Src\Application\Scene.cpp">
       <Filter>Src\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\bullet.cpp">
-      <Filter>Src\Application</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Particle\P_Hit.cpp">
       <Filter>Src\Application\Particle</Filter>
     </ClCompile>
@@ -394,6 +412,21 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Program\Button\Program_Button.cpp">
       <Filter>Src\Application\Program\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Particle\volt\volt.cpp">
+      <Filter>Src\Application\Particle\volt</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Bullet\bullet.cpp">
+      <Filter>Src\Application\Oblect\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Bullet\Missile\Missile.cpp">
+      <Filter>Src\Application\Oblect\Bullet\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Bullet\BaseBullet.cpp">
+      <Filter>Src\Application\Oblect\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Enemy\Boss\Cannon.cpp">
+      <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

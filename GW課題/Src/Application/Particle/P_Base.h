@@ -2,7 +2,6 @@
 #include "Application/Utility.h"
 
 class C_Player;
-class C_Icicle;
 
 using namespace std;
 using namespace Screen;

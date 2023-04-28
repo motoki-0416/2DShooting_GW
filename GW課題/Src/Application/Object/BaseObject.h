@@ -3,16 +3,16 @@
 
 enum EnemyType
 {
-enemyNormal=1,
-enemyMiniBoss,
-enemyBoss,
+	enemyNormal=1,
+	enemyMiniBoss,
+	enemyBoss,
 };
 
 using namespace std;
 using namespace Screen;
 
+class C_BaseBullet;
 class C_BaseParticle;
-class C_Bullet;
 class C_Player;
 class Scene;
 
@@ -22,7 +22,7 @@ public:
 	C_BaseObject();
 	virtual ~C_BaseObject();
 
-	virtual void Init() = 0;
+	virtual void Init() {};
 	virtual void Update() {};
 	virtual void Draw();
 
@@ -30,13 +30,13 @@ public:
 	void SetAlive(bool a_alive) { m_bAlive = a_alive; }
 	virtual void SetTex(KdTexture* a_pTex, Scene* a_pOwner);
 	virtual void SetType(EnemyType i) { m_type = i; }
-    void SetHP(int i) { m_hp -= i; if (m_hp <= 0) { m_bAlive = false; } }
+	void SetHP(int i) { m_hp -= i; if (m_hp <= 0) { m_bAlive = false; } }
 
 
 	const bool GetAlive() { return m_bAlive; }
 	const OBJData* GetData() { return &m_data; }
 	const Math::Vector3 GetPos() { return m_data.m_pos; }
-	const int  GetSize() { return m_bullet.size()+m_particle.size(); }
+	const int  GetSize() { return m_bullet.size() + m_particle.size(); }
 	const EnemyType GetType() { return m_type; }
 
 	virtual bool BoxCD(const OBJData a_Adata, const OBJData a_Bdata);
@@ -61,7 +61,7 @@ protected:
 
 	//球
 	KdTexture* m_pBulletTex;
-	vector<shared_ptr<C_Bullet>> m_bullet;
+	vector<shared_ptr<C_BaseBullet>> m_bullet;
 
 	//球のパーティクル
 	vector<shared_ptr<C_BaseParticle>>m_particle;
@@ -69,7 +69,7 @@ protected:
 
 	//爆破
 	KdTexture* m_pBomTex;
-	
+
 	Math::Matrix m_transMat;
 	Math::Matrix m_scaleMat;
 

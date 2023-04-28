@@ -1,20 +1,17 @@
 #pragma once
-#include "Utility.h"
+#include "Application/Utility.h"
 using namespace Screen;
 
-class C_Bullet
+class C_BaseBullet
 {
 public:
 
-	C_Bullet();    //コンストラクタ
-	~C_Bullet();   //デストラクタ
+	C_BaseBullet();    //コンストラクタ
+	~C_BaseBullet() {}   //デストラクタ
 
-	void Init();
-	void Update();
-	void Draw();
-
-	//関数
-
+	virtual void Init();
+	virtual void Update();
+	virtual void Draw();
 
 	//セッター
 	void SetAlive(bool a_alive) { m_bAlive = a_alive; }
@@ -28,11 +25,14 @@ public:
 	const Math::Vector3 GetMove() { return m_data.m_move; }
 	const OBJData* GetData() { return &m_data; }
 
-private:
+	void SetSize(float a_size) { m_size = a_size; };
 
-	OBJData m_data = { {16,16,0},m_data.SIZE / 2,{0,0,0},{0,0,0},{ Math::Matrix::Identity}, {nullptr} };
-	bool m_bAlive;
-	
-	//弾が画面が外に出たか
 	const bool IsScreenOut();
+
+protected:
+	OBJData m_data = { {16,16,0},m_data.SIZE / 5,{0,0,0},{0,0,0},{ Math::Matrix::Identity}, {nullptr} };
+	bool m_bAlive;
+
+	float m_size;
+	Math::Matrix m_scaleMat;
 };

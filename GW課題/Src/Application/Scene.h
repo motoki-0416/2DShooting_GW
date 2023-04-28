@@ -51,6 +51,9 @@ struct BossTexture
 	KdTexture bossTex;
 	KdTexture cannonUTex;
 	KdTexture cannonDTex;
+	KdTexture voltTex;
+	KdTexture missileTex;
+
 };
 
 class Scene

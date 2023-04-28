@@ -1,6 +1,6 @@
 #include "Application/Object/BaseObject.h"
 #include "MoveEnemy.h"
-#include "Application/bullet.h"
+#include "Application/Object/Bullet/bullet.h"
 #include "Application/Particle/P_Bom.h"
 
 void C_MoveEnemy::Init()
@@ -12,18 +12,14 @@ void C_MoveEnemy::Init()
 
 void C_MoveEnemy::Update()
 {
-
 	//“®‚«
 	Move();
-
 	//¶‚«‚Ä‚¢‚ê‚Î
 	if (m_bAlive)
 	{
 		//ƒ‰ƒ“ƒ_ƒ€‚Å‹…‚ğì‚é
-		if (rand() % 60 <= 0)
-		{
-			MakeBullet();
-		}
+		if (rand() % 60 <= 0)MakeBullet();
+		
 		m_data.m_pos += m_data.m_move;
 		m_transMat = Math::Matrix::CreateTranslation(m_data.m_pos);
 		
@@ -53,12 +49,7 @@ void C_MoveEnemy::Update()
 void C_MoveEnemy::Move()
 {
 	ang += 1.5;
-
-	if (ang >= 360)
-	{
-		ang -= 360;
-	}
-
+	if (ang >= 360)ang -= 360;
 	m_data.m_move.x=sin(DirectX::XMConvertToRadians(ang)) * 1.5;
 }
 

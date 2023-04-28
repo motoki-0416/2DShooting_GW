@@ -1,7 +1,7 @@
 #include "BaseObject.h"
 #include "Application/Scene.h"
-#include "Application/bullet.h"
 #include "Application/Object/Player/Player.h"
+#include "Application/Object/Bullet/BaseBullet.h"
 
 #include "Application/Particle/P_Bom.h"
 #include "Application/Particle/P_Hit.h"
@@ -128,7 +128,6 @@ void C_BaseObject::DeleteManager()
 	{
 		if (!(*be)->GetAlive())
 		{
-			be->reset();
 			be = m_bullet.erase(be);
 		}
 		else
@@ -137,13 +136,12 @@ void C_BaseObject::DeleteManager()
 		}
 	}
 
-	//ヒットパーティクル
+	//パーティクル
 	auto hi = m_particle.begin();
 	while (hi != m_particle.end())
 	{
 		if (!(*hi)->GetAlive())
 		{
-			hi->reset();
 			hi = m_particle.erase(hi);
 		}
 		else

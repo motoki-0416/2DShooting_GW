@@ -1,5 +1,5 @@
 #include "MiniBoss.h"
-#include "Application/bullet.h"
+#include "Application/Object/Bullet/bullet.h"
 #include "Application/Particle/P_Bom.h"
 #include "Application/Object/Player/Player.h"
 

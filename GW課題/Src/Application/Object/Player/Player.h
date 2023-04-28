@@ -1,11 +1,11 @@
 #pragma once
 #include "Application/Utility.h"
-#include "Application/bullet.h"
-
+#include "Application/Object/Bullet/BaseBullet.h"
 using namespace std;
 
 class Scene;
 class C_PBom;
+class C_BaseBullet;
 class C_BaseObject;
 
 class C_Player
@@ -62,7 +62,7 @@ private:
 
 	//‹…
 	KdTexture* m_pBulletTex;
-	vector<shared_ptr<C_Bullet>> m_bullet;
+	vector<shared_ptr<C_BaseBullet>> m_bullet;
 	static const int BULLET_MOVE_Y = 13;
 	static const int COUNT_NUM = 1;
 	int shotCount;

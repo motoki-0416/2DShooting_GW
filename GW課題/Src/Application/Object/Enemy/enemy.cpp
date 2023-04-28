@@ -1,6 +1,6 @@
 #include "enemy.h"
 #include "Application/Scene.h"
-#include "Application/bullet.h"
+#include "Application/Object/Bullet/bullet.h"
 #include "Application/Particle/P_Bom.h"
 
 void C_Enemy::Init()

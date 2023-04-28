@@ -2,14 +2,12 @@
 #include "Application/Scene.h"
 #include "Application/Object/BaseObject.h"
 #include "Application/Particle/P_Bom.h"
+#include "Application/Object/Bullet/bullet.h"
 #include "Application/Object/Enemy/MiniBoss/MiniBoss.h"
 
 C_Player::C_Player()
 {
 	Init();
-
-
-
 }
 
 C_Player::~C_Player()
@@ -80,12 +78,12 @@ void C_Player::Update(int a_eve)
 
 void C_Player::Draw()
 {
-
-
+	D3D.SetBlendState(BlendMode::Add);
 	for (int i = 0; i < m_bullet.size(); i++)
 	{
 		m_bullet[i]->Draw();
 	}
+	D3D.SetBlendState(BlendMode::Alpha);
 
 	if (bomCount < BOM_MAX)
 	{
@@ -100,7 +98,6 @@ void C_Player::Draw()
 
 
 }
-
 
 void C_Player::StartEvent()
 {
@@ -213,8 +210,6 @@ void C_Player::DeleteManager()
 	}
 }
 
-
-
 void C_Player::MakeBullet()
 {
 	shared_ptr<C_Bullet> tmpA = make_shared<C_Bullet>();
@@ -262,4 +257,3 @@ bool C_Player::CircleCD(const OBJData a_Adata, const OBJData a_Bdata)
 	}
 	return false;
 }
-
