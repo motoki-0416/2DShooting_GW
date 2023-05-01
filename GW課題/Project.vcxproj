@@ -167,7 +167,7 @@
     <ClInclude Include="Src\Application\Event\StopEvent\Event_Stop.h" />
     <ClInclude Include="Src\Application\Object\Bullet\BaseBullet.h" />
     <ClInclude Include="Src\Application\Object\Bullet\bullet.h" />
-    <ClInclude Include="Src\Application\Object\Bullet\Missile\Missile.h" />
+    <ClInclude Include="Src\Application\Object\Bullet\Missile\Homing.h" />
     <ClInclude Include="Src\Application\Object\Enemy\Boss\Boss.h" />
     <ClInclude Include="Src\Application\Object\Enemy\Boss\Cannon.h" />
     <ClInclude Include="Src\Application\Object\Enemy\enemy.h" />
@@ -219,7 +219,7 @@
     <ClCompile Include="Src\Application\Event\StopEvent\Event_Stop.cpp" />
     <ClCompile Include="Src\Application\Object\Bullet\BaseBullet.cpp" />
     <ClCompile Include="Src\Application\Object\Bullet\bullet.cpp" />
-    <ClCompile Include="Src\Application\Object\Bullet\Missile\Missile.cpp" />
+    <ClCompile Include="Src\Application\Object\Bullet\Missile\Homing.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\Boss\Boss.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\Boss\Cannon.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\enemy.cpp" />

@@ -183,20 +183,6 @@ void Scene::CreateManager(int a_eve)
 	switch (a_eve)
 	{
 	case 1://スタート
-		if (!bossFlg)
-		{
-			shared_ptr<C_Boss>tmpA = make_shared<C_Boss>();
-			tmpA->Init();
-			tmpA->SetPos({ 0,(float)(360 + tmpA->GetData()->HALF_SIZE.y),0 });
-			tmpA->SetTex(this);
-			tmpA->SetType(enemyBoss);
-			m_enemy.push_back(tmpA);
-			bossFlg = true;
-		}
-		return;
-		break;
-
-	case 2:
 		if (!miniBossFlg)
 		{
 			shared_ptr<C_MiniBoss>tmpA = make_shared<C_MiniBoss>();
@@ -207,6 +193,11 @@ void Scene::CreateManager(int a_eve)
 			m_enemy.push_back(tmpA);
 			miniBossFlg = true;
 		}
+		return;
+		break;
+
+	case 2:
+		
 		break;
 
 	case 3:

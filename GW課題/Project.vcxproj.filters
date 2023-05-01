@@ -276,7 +276,7 @@
     <ClInclude Include="Src\Application\Object\Bullet\bullet.h">
       <Filter>Src\Application\Oblect\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Bullet\Missile\Missile.h">
+    <ClInclude Include="Src\Application\Object\Bullet\Missile\Homing.h">
       <Filter>Src\Application\Oblect\Bullet\Missile</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Bullet\BaseBullet.h">
@@ -419,7 +419,7 @@
     <ClCompile Include="Src\Application\Object\Bullet\bullet.cpp">
       <Filter>Src\Application\Oblect\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\Bullet\Missile\Missile.cpp">
+    <ClCompile Include="Src\Application\Object\Bullet\Missile\Homing.cpp">
       <Filter>Src\Application\Oblect\Bullet\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Bullet\BaseBullet.cpp">

@@ -149,6 +149,8 @@ void C_BaseObject::DeleteManager()
 			hi++;
 		}
 	}
+
+	
 }
 
 //	アニメ枚数	攻撃時に別のアニメがある場合

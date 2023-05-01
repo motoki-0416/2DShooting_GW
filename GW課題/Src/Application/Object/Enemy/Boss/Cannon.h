@@ -21,6 +21,9 @@ public:
 	void Update()override;
 	void SetPos(Math::Vector3 a_pos)override;
 	
+	void MakeBom()override;
+
+
 	void SetCannonType(int a_type)	{ m_cannonType = (CannonType)a_type; }
 
 	void HitCheckBullet(C_Player* a_player)override;

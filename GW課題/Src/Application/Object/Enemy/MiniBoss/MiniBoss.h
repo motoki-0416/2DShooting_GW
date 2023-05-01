@@ -15,16 +15,26 @@ public:
 	void Update()override;
 	void Draw()override;
 
+
+	void Move();
+
+	void MakeBom()override;
+
 	//ãÖçÏê¨-çUåÇ
 	void MakeBullet();
 	void HitCheckBullet(C_Player* a_player)override;
 
 private:
-	//static const int 
-	static const int MAX_HP = 50;
+
+	bool startFlg;
+	int atkDelay;
+
+	static const int MAX_DELAY = 30;
+	int damageDelay;
+	static const int MAX_HP = 200;
 
 
 	static const int ENEMY_MOVE_Y = -10;
-	static const int BULLET_MOVE_Y = -10;
+	static const int BULLET_MOVE_Y = -5;
 
 };

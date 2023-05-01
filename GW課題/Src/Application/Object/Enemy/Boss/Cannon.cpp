@@ -1,5 +1,6 @@
 #include "Application/Object/Enemy/Boss/Cannon.h"
 #include "Application/Object/Player/Player.h"
+#include "Application/Particle/P_Bom.h"
 
 void C_Cannon::Init()
 {
@@ -22,6 +23,13 @@ void C_Cannon::Init()
 
 void C_Cannon::Draw()
 {
+	for (int i = 0; i < m_particle.size(); i++)
+	{
+		m_particle[i]->Draw();
+	}
+
+
+
 	if (!m_bAlive)return;
 
 	Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
@@ -54,6 +62,12 @@ void C_Cannon::Draw()
 
 void C_Cannon::Update()
 {
+	for (int i = 0; i < m_particle.size(); i++)
+	{
+		m_particle[i]->Update();
+	}
+
+
 	if (m_bAlive)
 	{
 		//ê∂ë∂ämîF
@@ -81,6 +95,8 @@ void C_Cannon::Update()
 		damageDelay--;
 
 	}
+
+	DeleteManager();
 }
 
 void C_Cannon::SetPos(Math::Vector3 a_pos)
@@ -107,9 +123,24 @@ void C_Cannon::SetPos(Math::Vector3 a_pos)
 
 }
 
+void C_Cannon::MakeBom()
+{
+
+	shared_ptr<C_PBom> tmpA = make_shared<C_PBom>();
+	tmpA->Init();
+	float X = m_data.m_pos.x + ((rand() % (long)m_data.SIZE.x) - m_data.HALF_SIZE.x);
+	float Y = m_data.m_pos.y + ((rand() % (long)m_data.SIZE.y) - m_data.HALF_SIZE.y);
+	tmpA->SetPos({ X,Y,m_data.m_pos.z });//ç¿ïW
+	tmpA->SetMove({ 0, m_data.m_move.y, 0 });//à⁄ìÆó 
+	tmpA->SetTex(m_pBomTex);	//âÊëú
+	m_particle.push_back(tmpA);
+
+}
 
 void C_Cannon::HitCheckBullet(C_Player* a_player)
 {
+	if (!m_bAlive)return;
+
 	for (int i = 0; i < a_player->GetBulletSize(); i++)
 	{
 		if (CircleCD(*a_player->GetBulletData(i), m_data))

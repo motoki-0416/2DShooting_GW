@@ -4,8 +4,9 @@
 
 enum Atk
 {
-	Atk_Horming,
+	Atk_Missile,
 	Atk_Rotate,
+	Atk_Homing,
 };
 
 class C_Boss :public C_BaseObject
@@ -24,22 +25,27 @@ public:
 	
 	void AtkSelect();
 	void AtkRotate();
-	void AtkHorming();
+	void AtkMissile();
+	void AtkHoming();
 	
 	void MakeBullet();
 	void MakeMissile();
+	void MakeHoming();
+
 
 
 	void MakeBom(OBJData a_data, int num = 1);
 	void MakeVolt();
 
-	void SetPlayerPos(Math::Vector3 a_pos) { playerPos = a_pos; }
 	void Move();
 
 	void PlayerCD(C_Player* a_player)override;
 	void HitCheckBullet(C_Player* a_player)override;
 
 	void SetTex(Scene* a_pOwner);
+
+	void DeleteManager()override;
+
 private:
 	static const int MAX_HP = 300;
 	static const int MAX_CANNONHP = 50;

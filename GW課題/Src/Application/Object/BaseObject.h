@@ -33,7 +33,7 @@ public:
 	void SetHP(int i) { m_hp -= i; if (m_hp <= 0) { m_bAlive = false; } }
 
 
-	const bool GetAlive() { return m_bAlive; }
+	virtual const bool GetAlive() { return m_bAlive; }
 	const OBJData* GetData() { return &m_data; }
 	const Math::Vector3 GetPos() { return m_data.m_pos; }
 	const int  GetSize() { return m_bullet.size() + m_particle.size(); }
@@ -47,7 +47,7 @@ public:
 	virtual void MakeBom();
 	void MakeHit(OBJData a_data, Math::Vector2 a_size = { 0,0 });
 
-	void DeleteManager();
+	virtual  void DeleteManager();
 
 protected:
 

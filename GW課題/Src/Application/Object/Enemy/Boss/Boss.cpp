@@ -4,7 +4,9 @@
 #include "Application/Object/Enemy/Boss/Cannon.h"
 
 #include "Application/Object/Bullet/bullet.h"
-#include "Application/Object/Bullet/Missile/Missile.h"
+#include "Application/Object/Bullet/Missile/Homing.h"
+
+
 #include "Application/Particle/P_Bom.h"
 #include "Application/Particle/volt/volt.h"
 
@@ -12,7 +14,7 @@ void C_Boss::Init()
 {
 	//攻撃変数
 	atkDelay = 100;
-	m_atk = Atk_Horming;
+	m_atk = Atk_Missile;
 
 	m_hp = MAX_HP;
 
@@ -44,14 +46,16 @@ void C_Boss::Update()
 	else
 	{
 
+
+		if (damageDelay > 0)damageDelay--;	//ダメージを食らっていたら
+
 		if (m_bAlive)
 		{
-
-			if (damageDelay > 0)damageDelay--;	//ダメージを食らっていたら
 
 			Move();								//動き
 
 			AtkSelect();						//攻撃
+		
 		}
 		else if (damageDelay > 0)
 		{
@@ -182,7 +186,7 @@ void C_Boss::PlayerCD(C_Player* a_player)
 
 	}
 
-	SetPlayerPos(a_player->GetPos());
+	playerPos = a_player->GetPos();
 }
 
 
@@ -234,12 +238,19 @@ void C_Boss::AtkSelect()
 
 	switch (m_atk)
 	{
-	case Atk_Horming:
-		AtkHorming();
+
+	case Atk_Missile:
+		AtkMissile();
 		break;
+
 	case Atk_Rotate:
 		AtkRotate();
 		break;
+
+	case Atk_Homing:
+		AtkHoming();
+		break;
+
 	default:
 		break;
 	}
@@ -247,34 +258,34 @@ void C_Boss::AtkSelect()
 
 
 
-//ホーミング攻撃
-void C_Boss::AtkHorming()
+//扇攻撃
+void C_Boss::AtkMissile()
 {
-	static int hDelay = 0;
-	static int hCount;
+	static int oDelay = 0;
+	static int oCount;
 
-	if (hDelay <= 0)
+	if (oDelay <= 0)
 	{
 
 		MakeMissile();
 
-		hDelay = 30;
+		oDelay = 30;
 
-		hCount++;
+		oCount++;
 	}
 	else
 	{
 
-		hDelay--;
+		oDelay--;
 
 	}
 
-	if (hCount > 5)
+	if (oCount > 5)
 	{
 
-		hDelay = 0;
+		oDelay = 0;
 
-		hCount = 0;
+		oCount = 0;
 
 		atkDelay = 100;
 
@@ -305,7 +316,46 @@ void C_Boss::AtkRotate()
 
 		atkDelay = 100;
 
-		m_atk = Atk_Horming;
+		m_atk = Atk_Homing;
+
+	}
+}
+
+
+
+//ホーミングの作成
+void C_Boss::AtkHoming()
+{
+
+	static int hDelay = 0;
+	static int hCount;
+
+	if (hDelay <= 0)
+	{
+
+		MakeHoming();
+
+		hDelay = 3;
+
+		hCount++;
+	}
+	else
+	{
+
+		hDelay--;
+
+	}
+
+	if (hCount > 30)
+	{
+
+		hDelay = 0;
+
+		hCount = 0;
+
+		atkDelay = 100;
+
+		m_atk = Atk_Rotate;
 
 	}
 }
@@ -332,6 +382,23 @@ void C_Boss::MakeBullet()
 
 }
 
+
+
+//球の作成
+void C_Boss::MakeVolt()
+{
+	shared_ptr<C_PVolt> tmpA = make_shared<C_PVolt>();
+	tmpA->Init();
+	float X = m_data.m_pos.x;
+	float Y = m_data.m_pos.y - 10;
+	tmpA->SetPos({ X,Y,m_data.m_pos.z });//座標
+	tmpA->SetTex(m_pVoltTex);	//画像
+	m_particle.push_back(tmpA);
+}
+
+
+
+
 //扇状の作成
 void C_Boss::MakeMissile()
 {
@@ -347,6 +414,21 @@ void C_Boss::MakeMissile()
 		m_bullet.push_back(tmpA);
 
 	}
+}
+
+
+
+//ホーミング球の作成
+void C_Boss::MakeHoming()
+{
+	shared_ptr<C_Homing> tmpA = make_shared<C_Homing>();
+	tmpA->Init();
+	tmpA->SetPos({ m_data.m_pos.x,m_data.m_pos.y - 20,m_data.m_pos.z });
+	tmpA->SetMove({ rand() % 10 - 5.0f, rand() % 2 + 1.0f,0.0f });
+	tmpA->SetPlayerPos(playerPos);
+	tmpA->SetSize(1.5);
+	tmpA->SetTex(m_pBulletTex);
+	m_bullet.push_back(tmpA);
 }
 
 
@@ -367,20 +449,6 @@ void C_Boss::MakeBom(OBJData a_data, int num)
 		m_particle.push_back(tmpA);
 
 	}
-}
-
-
-
-//球の作成
-void C_Boss::MakeVolt()
-{
-	shared_ptr<C_PVolt> tmpA = make_shared<C_PVolt>();
-	tmpA->Init();
-	float X = m_data.m_pos.x;
-	float Y = m_data.m_pos.y - 10;
-	tmpA->SetPos({ X,Y,m_data.m_pos.z });//座標
-	tmpA->SetTex(m_pVoltTex);	//画像
-	m_particle.push_back(tmpA);
 }
 
 
@@ -421,8 +489,53 @@ void C_Boss::SetTex(Scene* a_pOwner)
 	{
 		shared_ptr<C_Cannon> tmpA = make_shared<C_Cannon>();
 		tmpA->SetCannonType(i);
-		i < CANNON_NUM/2 ? tmpA->SetTex(&a_pOwner->GetBossTex()->cannonUTex,a_pOwner ) : tmpA->SetTex(&a_pOwner->GetBossTex()->cannonDTex,a_pOwner);
+		i < CANNON_NUM / 2 ? tmpA->SetTex(&a_pOwner->GetBossTex()->cannonUTex, a_pOwner) : tmpA->SetTex(&a_pOwner->GetBossTex()->cannonDTex, a_pOwner);
 		tmpA->Init();
 		m_cannonList.push_back(tmpA);
+	}
+}
+
+void C_Boss::DeleteManager()
+{
+	//球
+	auto be = m_bullet.begin();
+	while (be != m_bullet.end())
+	{
+		if (!(*be)->GetAlive())
+		{
+			be = m_bullet.erase(be);
+		}
+		else
+		{
+			be++;
+		}
+	}
+
+	//パーティクル
+	auto hi = m_particle.begin();
+	while (hi != m_particle.end())
+	{
+		if (!(*hi)->GetAlive())
+		{
+			hi = m_particle.erase(hi);
+		}
+		else
+		{
+			hi++;
+		}
+	}
+
+	//大砲
+	auto ti = m_cannonList.begin();
+	while (ti != m_cannonList.end())
+	{
+		if (!(*ti)->GetAlive()&&(*ti)->GetSize()<=0)
+		{
+			ti = m_cannonList.erase(ti);
+		}
+		else
+		{
+			ti++;
+		}
 	}
 }
