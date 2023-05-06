@@ -1,4 +1,6 @@
 #include "Application/Object/Enemy/Boss/Cannon.h"
+#include "Application/Scene.h"
+#include "Application/Scene/Game/Scene_Game.h"
 #include "Application/Object/Player/Player.h"
 #include "Application/Particle/P_Bom.h"
 
@@ -97,6 +99,7 @@ void C_Cannon::Update()
 	}
 
 	DeleteManager();
+
 }
 
 void C_Cannon::SetPos(Math::Vector3 a_pos)
@@ -119,7 +122,6 @@ void C_Cannon::SetPos(Math::Vector3 a_pos)
 		break;
 	}
 
-	m_data.m_mat = Math::Matrix::CreateTranslation(m_data.m_pos);
 
 }
 
@@ -137,19 +139,19 @@ void C_Cannon::MakeBom()
 
 }
 
-void C_Cannon::HitCheckBullet(C_Player* a_player)
+void C_Cannon::HitCheckBullet(C_SceneGame* a_pOwner)
 {
 	if (!m_bAlive)return;
 
-	for (int i = 0; i < a_player->GetBulletSize(); i++)
+	for (int i = 0; i < a_pOwner->GetPlayer()->GetBulletSize(); i++)
 	{
-		if (CircleCD(*a_player->GetBulletData(i), m_data))
+		if (CircleCD(*a_pOwner->GetPlayer()->GetBulletData(i), m_data))
 		{
 			//ヒットパーティクル生成
 			for (int z = 0; z < HIT_NUM; z++)
 			{
 
-				MakeHit(*a_player->GetBulletData(i), { 2,2 });
+				MakeHit(*a_pOwner->GetPlayer()->GetBulletData(i), { 2,2 });
 
 			}
 
@@ -157,7 +159,9 @@ void C_Cannon::HitCheckBullet(C_Player* a_player)
 
 			m_hp -= 1;
 
-			a_player->SetBulletAlive(false, i);
+			a_pOwner->GetPlayer()->SetBulletAlive(false, i);
+
+			a_pOwner->SetScore(1000);
 
 		}
 	}

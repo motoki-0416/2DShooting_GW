@@ -4,6 +4,7 @@
 using namespace std;
 
 class Scene;
+class C_SceneGame;
 class C_PBom;
 class C_BaseBullet;
 class C_BaseObject;
@@ -32,7 +33,8 @@ public:
 	void MakeBom(Math::Vector3 a_pos,float size = 1,Math::Vector3 a_move = { 0,0,0});
 
 	//セッター
-	void SetTex(KdTexture* a_pTex, Scene* a_pOwner);//仮引数
+	void SetTex(Scene* a_pOwner);//仮引数
+	void SetOwner(C_SceneGame* a_pOwner) { m_pOwner = a_pOwner; }
 	void SetPos(Math::Vector3 a_pos) { m_data.m_pos = a_pos; m_data.m_mat = Math::Matrix::CreateTranslation(m_data.m_pos); }
 	void SetHP(int a_hp);
 	void SetAlive(bool a_alive) { m_bAlive = a_alive; }
@@ -40,6 +42,7 @@ public:
 
 	//ゲッター
 	const bool GetAlive() { return m_bAlive; }
+	const int GetHP() { return m_hp; }
 	const OBJData* GetData() { return &m_data; }
 	const OBJData* GetBulletData(int i) { return m_bullet[i]->GetData(); }
 	const Math::Vector3 GetPos() { return m_data.m_pos; }
@@ -48,7 +51,9 @@ public:
 	bool CircleCD(const OBJData a_Adata, const OBJData a_Bdata);
 	
 private:
-	OBJData m_data = { {64,64,0},m_data.SIZE / 2,{0,0,0},{0,0,0},{Math::Matrix::Identity},nullptr };
+
+	C_SceneGame* m_pOwner;
+	OBJData m_data = { {64,64,0},m_data.SIZE / 2,{0,0,0},{0,0,0},1.0f,{Math::Matrix::Identity},nullptr };
 	static const int MAX_HP = 100;
 	int m_hp;
 	bool m_bAlive;

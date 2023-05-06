@@ -5,8 +5,9 @@
 
 void C_MoveEnemy::Init()
 {
-	m_size = 1.5;
-	m_scaleMat = Math::Matrix::CreateScale(m_size);
+	m_hp = 3;
+	m_data.SIZE = { 64,64,0 };
+	m_data.HALF_SIZE = m_data.SIZE / 2;;
 	m_data.m_move = { 0,-1,0 };
 }
 
@@ -20,10 +21,6 @@ void C_MoveEnemy::Update()
 		//ƒ‰ƒ“ƒ_ƒ€‚Å‹…‚ğì‚é
 		if (rand() % 60 <= 0)MakeBullet();
 		
-		m_data.m_pos += m_data.m_move;
-		m_transMat = Math::Matrix::CreateTranslation(m_data.m_pos);
-		
-		m_data.m_mat = m_scaleMat * m_transMat;
 	}
 
 	//‹…‚Ìˆ—

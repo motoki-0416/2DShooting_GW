@@ -39,22 +39,27 @@ public:
 
 	void Move();
 
-	void PlayerCD(C_Player* a_player)override;
-	void HitCheckBullet(C_Player* a_player)override;
+	void PlayerCD(C_Player& a_player)override;
+	void HitCheckBullet(C_SceneGame* a_pOwner)override;
 
 	void SetTex(Scene* a_pOwner);
+
+	void CommitPos(Math::Vector3 a_move)override;
 
 	void DeleteManager()override;
 
 private:
+	Scene* m_pOwner;
+
 	static const int MAX_HP = 300;
-	static const int MAX_CANNONHP = 50;
+	static const int MAX_CANNONHP = 80;
 	static const int CANNON_NUM = 4;
 	static const int ENEMY_MOVE_Y = -10;
 	static const int BULLET_MOVE_Y = -5;
 
 	bool startFlg;
 
+	float moveDeg;
 
 	Math::Vector3 playerPos;
 

@@ -25,6 +25,7 @@ struct OBJData {
 
 	Math::Vector3			m_pos;		//	座標
 	Math::Vector3			m_move;		//	移動量
+	float					m_alpha;	//  透明度
 	Math::Matrix			m_mat;		//	行列
 
 	KdTexture* m_pTex;		//	テクスチャ

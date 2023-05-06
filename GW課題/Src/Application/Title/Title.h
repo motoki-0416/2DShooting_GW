@@ -20,7 +20,7 @@ public:
 	C_Title(){}
 	~C_Title(){}
 
-	void Init();
+	void Init(Scene* a_pOwner);
 	void Draw();
 	void DrawTitle();
 
@@ -30,7 +30,7 @@ public:
 
 private:
 
-	BASE m_back= { {WIDTH,HEIGHT,0},m_back.SIZE / 2,{0,0,0},1.0f,{ Math::Matrix::CreateTranslation(m_back.m_pos)},{nullptr} };
+	BASE m_back= { {640,912,0},m_back.SIZE / 2,{0,0,0},1.0f,{ Math::Matrix::CreateTranslation(m_back.m_pos)},{nullptr} };
 
 	SceneTitle sceneTitle;
 

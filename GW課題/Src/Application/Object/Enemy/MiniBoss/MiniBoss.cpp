@@ -1,4 +1,6 @@
 #include "MiniBoss.h"
+#include "Application/Scene.h"
+#include "Application/Scene/Game/Scene_Game.h"
 #include "Application/Object/Bullet/bullet.h"
 #include "Application/Particle/P_Bom.h"
 #include "Application/Object/Player/Player.h"
@@ -64,10 +66,6 @@ void C_MiniBoss::Update()
 	
 	}
 
-	m_data.m_pos += m_data.m_move;
-	m_transMat = Math::Matrix::CreateTranslation(m_data.m_pos);
-	m_data.m_mat = m_scaleMat * m_transMat;
-
 	//球の処理
 	for (int i = 0; i < m_bullet.size(); i++)
 	{
@@ -128,6 +126,7 @@ void C_MiniBoss::Draw()
 	}
 }
 
+
 void C_MiniBoss::Move()
 {
 
@@ -177,17 +176,17 @@ void C_MiniBoss::MakeBullet()
 
 }
 
-void C_MiniBoss::HitCheckBullet(C_Player* a_player)
+void C_MiniBoss::HitCheckBullet(C_SceneGame* a_pOwner)
 {
 	if (!m_bAlive)return;
-	for (int i = 0; i < a_player->GetBulletSize(); i++)
+	for (int i = 0; i < a_pOwner->GetPlayer()->GetBulletSize(); i++)
 	{
-		if (BoxCD(*a_player->GetBulletData(i), m_data))
+		if (BoxCD(*a_pOwner->GetPlayer()->GetBulletData(i), m_data))
 		{
 			//ヒットパーティクル生成
 			for (int j = 0; j < HIT_NUM; j++)
 			{
-				MakeHit(*a_player->GetBulletData(i), { 2,2 });
+				MakeHit(*a_pOwner->GetPlayer()->GetBulletData(i), {2,2});
 			}
 
 			damageDelay = 30;
@@ -195,7 +194,9 @@ void C_MiniBoss::HitCheckBullet(C_Player* a_player)
 			SetHP(1);
 
 			//当たっていたら敵と弾を消す
-			a_player->SetBulletAlive(false, i);
+			a_pOwner->GetPlayer()->SetBulletAlive(false, i);
+
+			a_pOwner->SetScore(1000);
 		}
 	}
 }

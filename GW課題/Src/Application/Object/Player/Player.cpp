@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Application/Scene.h"
+#include "Application/Scene/Game/Scene_Game.h"
 #include "Application/Object/BaseObject.h"
 #include "Application/Particle/P_Bom.h"
 #include "Application/Object/Bullet/bullet.h"
@@ -43,8 +44,7 @@ void C_Player::Update(int a_eve)
 	case 1://スタート
 		StartEvent();
 		return;
-		break;
-
+		
 	default:
 		break;
 	}
@@ -56,17 +56,24 @@ void C_Player::Update(int a_eve)
 	}
 	else
 	{
+	
+		m_pOwner->SetSlow();
+
 		m_data.m_move = {};
+	
 		DedAnime();
+	
 	}
 
 	for (int b = 0; b < m_bullet.size(); b++)
 	{
 		m_bullet[b]->Update();
+		m_bullet[b]->CommitPos({});
 	}
 	for (int i = 0; i < m_bom.size(); i++)
 	{
 		m_bom[i]->Update();
+		m_bom[i]->CommitPos({});
 	}
 
 	//削除
@@ -231,12 +238,14 @@ void C_Player::MakeBom(Math::Vector3 a_pos, float size, Math::Vector3 a_move)
 	m_bom.push_back(tempBom);
 }
 
-void C_Player::SetTex(KdTexture* a_pTex, Scene* a_pOwner)
+void C_Player::SetTex(Scene* a_pOwner)
 {
-	m_data.m_pTex = a_pTex;
-	m_pBulletTex = &a_pOwner->GetObjectTex()->bulletTex;
-	m_pHitTex = &a_pOwner->GetObjectTex()->p_hitTex;
-	m_pBomTex = &a_pOwner->GetObjectTex()->p_bomTex;
+
+	m_data.m_pTex = &a_pOwner->GetTex()->playerTex;
+	m_pBulletTex = &a_pOwner->GetTex()->bulletTex;
+	m_pHitTex = &a_pOwner->GetTex()->p_hitTex;
+	m_pBomTex = &a_pOwner->GetTex()->p_bomTex;
+
 }
 
 void C_Player::SetHP(int a_hp)

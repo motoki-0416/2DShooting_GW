@@ -10,11 +10,11 @@ void C_BlackOut::Update()
 {
 }
 
-bool C_BlackOut::ChangeAlpha(bool a_flg)
+bool C_BlackOut::ChangeAlpha(bool a_flg, float a_changeAlpha)
 {
 	if (!a_flg)
 	{
-		blackAlpha -= CHANGE_ALPHA;
+		blackAlpha -= a_changeAlpha;
 		if (blackAlpha <= MIN_ALPHA)
 		{
 			blackAlpha = MIN_ALPHA;
@@ -23,7 +23,7 @@ bool C_BlackOut::ChangeAlpha(bool a_flg)
 	}
 	else if(a_flg)
 	{
-		blackAlpha += CHANGE_ALPHA;
+		blackAlpha += a_changeAlpha;
 		if (blackAlpha >= MAX_ALPHA)
 		{
 			blackAlpha = MAX_ALPHA;

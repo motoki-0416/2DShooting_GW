@@ -3,6 +3,9 @@
 #include <DirectXTK/Inc/Keyboard.h>
 
 class Scene;
+class C_SelectButton;
+
+using namespace std;
 
 enum SceneOption
 {
@@ -14,16 +17,13 @@ class C_TitleOption
 {
 public:
 
-	C_TitleOption() { Init(); }
+	C_TitleOption() {  }
 	~C_TitleOption() {  }
 
-	void Init();
+	void Init(Scene* a_pOwner);
 	void Draw();
 	bool Update(bool a_bSpace);
 
-	void SetTex(Scene* a_pOwner);
-
-	void Select();
 	void VolumeChange();
 
 
@@ -35,9 +35,10 @@ private:
 
 	float volume;
 
+	static const int BUTTON_NUM = 2;
+	shared_ptr<BASE> m_vol;
+	shared_ptr<BASE> m_back;
 
-	BASE m_option;
-	BASE m_back;
-	BASE m_select;
+	shared_ptr<C_SelectButton> m_buttonList;
 
 };

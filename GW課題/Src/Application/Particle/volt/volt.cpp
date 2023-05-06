@@ -8,15 +8,11 @@ void C_PVolt::Init()
 
 void C_PVolt::Update()
 {
-	m_alpha -= 0.008;
-	if (m_alpha <= 0)
+	m_data.m_alpha -= 0.008;
+	if (m_data.m_alpha <= 0)
 	{
 		m_bAlive = false;
 	}
-	m_data.m_pos += m_data.m_move;
-	m_transMat= Math::Matrix::CreateTranslation(m_data.m_pos);
-	m_scaleMat = Math::Matrix::CreateScale(m_size);
-	m_data.m_mat = m_scaleMat * m_transMat;
 }
 
 void C_PVolt::Draw()

@@ -18,8 +18,12 @@ public:
 	void Draw();
 
 	//セッター
-	void SetTex(KdTexture* a_pTex);
+	void SetTex(Scene* a_pOwner);
 	void SetMove(Math::Vector3 a_move) { m_back.m_move = a_move; }
+	void SetMove(float a_move) { m_back.m_move.y = a_move; }
+	void SetStopFlg(bool a_flg) { stopFlg = a_flg; }
+
+	const Math::Vector3 GetMove() { return m_back.m_move; }
 
 	//ゲッター
 	const Math::Vector3 GetPos() { return m_back.m_pos; }
@@ -28,8 +32,9 @@ public:
 
 private:
 	
-	OBJData m_back = { {640, 3648, 0}, m_back.SIZE / 2, {0,0,0}, {0,-1,0}, {Math::Matrix::Identity}, {nullptr} };;
+	OBJData m_back = { {640, 3648, 0}, m_back.SIZE / 2, {0,0,0}, {0,-1,0}, 1.0f,{Math::Matrix::Identity}, {nullptr} };;
 	
+	bool stopFlg;
 
 	Math::Matrix m_transMat;
 	Math::Matrix m_scalMat;

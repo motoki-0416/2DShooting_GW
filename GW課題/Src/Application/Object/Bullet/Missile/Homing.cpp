@@ -18,10 +18,6 @@ void C_Homing::Update()
 
 	}
 
-	m_data.m_pos += m_data.m_move;
-	m_scaleMat = Math::Matrix::CreateScale(m_size);
-	m_data.m_mat = m_scaleMat * Math::Matrix::CreateTranslation(m_data.m_pos);
-
 }
 
 

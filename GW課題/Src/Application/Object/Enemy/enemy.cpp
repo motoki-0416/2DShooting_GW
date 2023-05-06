@@ -22,9 +22,7 @@ void C_Enemy::Update()
 		{
 			MakeBullet();
 		}
-		m_data.m_pos += m_data.m_move;
-		m_transMat= Math::Matrix::CreateTranslation(m_data.m_pos);
-		m_data.m_mat = m_scaleMat * m_transMat;
+	
 	}
 
 	//‹…‚Ìˆ—

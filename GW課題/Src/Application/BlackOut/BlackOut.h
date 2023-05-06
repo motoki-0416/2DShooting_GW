@@ -12,12 +12,11 @@ public:
 
 	void Init();
 	void Update();
-	bool ChangeAlpha(bool a_flg);
+	bool ChangeAlpha(bool a_flg, float a_changeAlpha=0.01);
 
 	void Draw();
 
 private:
-	const float CHANGE_ALPHA=0.01;
 
 	float blackAlpha;
 	bool bAlphaFlg;

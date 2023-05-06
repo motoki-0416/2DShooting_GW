@@ -6,145 +6,74 @@
 //ゲーム
 #include "Application/Object/Player/Player.h"
 
-class C_Button;
-class C_BlackOut;
-class C_Back;
-class C_Event;
-class C_Player;
-class C_BaseObject;
-class C_PShine;
+class C_BaseScene;
 
-enum SceneChange
-{
-	Title,
-	Tutorial,
-	Game,
-	Result
-};
 
-struct TitleTexture
+struct TexID
 {
 	KdTexture titleBackGroundTex;
 	KdTexture titleNameTex;
+	KdTexture titlePushSpace;
 	KdTexture titleStartTextTex;
 	KdTexture titleOptionTextTex;
-	KdTexture titileSelectTex;
+	KdTexture selectTex;
 	KdTexture titleOptionTex;
 	KdTexture titleBackTex;
-};
 
-struct EventTexture
-{
+	KdTexture numberTex;
+
 	KdTexture  eventStartTex;
+	KdTexture eventWarningTex;
+	KdTexture eventMissionTex;
 
-};
-
-struct ObjectTexture
-{
 	KdTexture bulletTex;
 	KdTexture p_hitTex;
 	KdTexture p_bomTex;
-};
 
-struct BossTexture
-{
+	KdTexture backTex;
+	KdTexture back2Tex;
+	KdTexture playerTex;
+	KdTexture enemyTex;
+	KdTexture moveEnemyTex;
+	KdTexture miniBossTex;
 	KdTexture bossTex;
 	KdTexture cannonUTex;
 	KdTexture cannonDTex;
 	KdTexture voltTex;
 	KdTexture missileTex;
 
+	KdTexture result_GameTex;
+	KdTexture result_RetryTex;
+	KdTexture result_TitleTex;
+
+	KdTexture resultTex;
 };
+
 
 class Scene
 {
 private:
-	shared_ptr<C_Button> m_button;
-	SceneChange sceneChange;
 
-	//ブラックアウト
-	shared_ptr<C_BlackOut> m_blackOut;
-
-	////////////////////////////////////////////////
-	//タイトル
-	////////////////////////////////////////////////
-	TitleTexture m_titleTex;
-	C_Title m_title;
-
-
-	////////////////////////////////////////////////
-	//ゲーム
-	////////////////////////////////////////////////
-
-
-	shared_ptr<C_Event> m_event;
-	EventTexture m_eventTex;
-	ObjectTexture m_objTex;
-
-	KdTexture playerTex;
-	C_Player* m_player;
-
-	KdTexture enemyTex;
-	KdTexture miniBossTex;
-	BossTexture m_bossTex;
-	bool miniBossFlg;
-	bool bossFlg;
-
-	//背景
-	shared_ptr<C_Back> m_back;
-	KdTexture backTex;
-	KdTexture back2Tex;
-	vector<shared_ptr<C_BaseObject>> m_enemy;
-
-	KdTexture shineTex;
-	vector<shared_ptr<C_PShine>> m_shine;
-
-
-	static const int MAX_SLOW=2;
-	int slowMotion;
-
-
-	//関数
-	void CreateManager(int a_eve);
-	void DeleteManager(bool m_bFlg=false);
-	void HitManager();
-
+	TexID m_texID;
+	shared_ptr<C_BaseScene> m_scene;
+	
 public:
 
 	//
-	TitleTexture* GetTitleTex() { return &m_titleTex; }
-	EventTexture* GetEventTex() { return &m_eventTex; }
-	ObjectTexture* GetObjectTex() { return &m_objTex; }
-	BossTexture* GetBossTex() { return &m_bossTex; }
-
+	TexID* GetTex() { return &m_texID; }
+	
 	// 初期設定
 	void LoadTex();
 	void Init();
 	
-	void InitTitle();
-	void InitTutorial();
-	void InitGame();
-
-	void Reset();
-
-
 	// 解放
 	void Release();
 
 	// 更新処理
 	void Update();
 
-	void UpdateTitle();
-	void UpdateTutorial();
-	void UpdateGame();
-
 	// 描画処理
 	void Draw2D();
-
-	void DrawTitle();
-	void DrawTutorial();
-	void DrawGame();
-
 
 	// GUI処理
 	void ImGuiUpdate();

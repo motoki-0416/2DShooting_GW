@@ -1,5 +1,6 @@
 #include "Boss.h"
 #include "Application/Scene.h"
+#include "Application/Scene/Game/Scene_Game.h"
 
 #include "Application/Object/Enemy/Boss/Cannon.h"
 
@@ -26,9 +27,10 @@ void C_Boss::Init()
 
 	damageDelay = 0;
 
+	moveDeg = 180;
+
 	startFlg = false;
 }
-
 
 
 
@@ -55,10 +57,15 @@ void C_Boss::Update()
 			Move();								//動き
 
 			AtkSelect();						//攻撃
-		
+
 		}
-		else if (damageDelay > 0)
+		else
 		{
+			//m_pOwner->SetSlow();
+
+			if (damageDelay < 0)damageDelay = 30;
+
+			m_data.m_move = {};
 
 			MakeBom(m_data);
 
@@ -66,11 +73,6 @@ void C_Boss::Update()
 	}
 
 	if (rand() % 20 <= 0)MakeVolt();	//パーティクル
-
-	//座標更新
-	m_data.m_pos += m_data.m_move;
-
-	m_data.m_mat = Math::Matrix::CreateTranslation(m_data.m_pos);
 
 	for (int i = 0; i < m_cannonList.size(); i++)
 	{
@@ -98,36 +100,34 @@ void C_Boss::Update()
 
 
 
-
 //描画
 void C_Boss::Draw()
 {
 	//ボス本体
-	if (m_bAlive)
+
+	Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
+	if (damageDelay > 0)color = { 1.0f,0.5f,0.5f,1.0f };
+
+	Math::Rectangle m_srcRect = { 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y };
+
+	SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
+
+	SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle{ 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y }, 1.0f);
+
+	if (damageDelay > 0 && damageDelay % 3)
 	{
-		Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
-		if (damageDelay > 0)color = { 1.0f,0.5f,0.5f,1.0f };
 
-		Math::Rectangle m_srcRect = { 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y };
+		Math::Color a_color = { 1.0f,0.7f,0.7f,1.0f };
+		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &a_color, Math::Vector2(0.5f, 0.5f));
 
-		SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
-
-		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle{ 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y }, 1.0f);
-
-		if (damageDelay > 0 && damageDelay % 3)
-		{
-
-			Math::Color a_color = { 1.0f,0.7f,0.7f,1.0f };
-			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &a_color, Math::Vector2(0.5f, 0.5f));
-
-		}
-		else
-		{
-
-			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &color, Math::Vector2(0.5f, 0.5f));
-
-		}
 	}
+	else
+	{
+
+		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &color, Math::Vector2(0.5f, 0.5f));
+
+	}
+
 
 	//大砲
 	for (int i = 0; i < m_cannonList.size(); i++)
@@ -157,19 +157,19 @@ void C_Boss::Draw()
 
 
 //自機との当たり判定
-void C_Boss::PlayerCD(C_Player* a_player)
+void C_Boss::PlayerCD(C_Player& a_player)
 {
-	if (!a_player->GetAlive())return;
+	if (!a_player.GetAlive())return;
 
 	//敵の球
 	for (int i = 0; i < m_bullet.size(); i++)
 	{
 
-		if (CircleCD(*m_bullet[i]->GetData(), *a_player->GetData()) && m_bullet[i]->GetAlive())
+		if (CircleCD(*m_bullet[i]->GetData(), *a_player.GetData()) && m_bullet[i]->GetAlive())
 		{
 			//敵と接触で自機にダメージ
 			m_bullet[i]->SetAlive(false);
-			a_player->SetHP(1);
+			a_player.SetHP(1);
 
 		}
 
@@ -177,23 +177,23 @@ void C_Boss::PlayerCD(C_Player* a_player)
 
 	if (!m_bAlive)return;
 	//敵本体
-	if (CircleCD(m_data, *a_player->GetData()) && m_bAlive)
+	if (CircleCD(m_data, *a_player.GetData()) && m_bAlive)
 	{
 
 		//敵と接触で自機にダメージ
-		MakeBom(*a_player->GetData());
-		a_player->SetHP(1);
+		MakeBom(*a_player.GetData());
+
+		a_player.SetHP(1);
 
 	}
 
-	playerPos = a_player->GetPos();
+	playerPos = a_player.GetPos();
 }
 
 
 
-
 //球の当たり判定
-void C_Boss::HitCheckBullet(C_Player* a_player)
+void C_Boss::HitCheckBullet(C_SceneGame* a_pOwner)
 {
 	if (!m_bAlive)return;
 
@@ -201,21 +201,21 @@ void C_Boss::HitCheckBullet(C_Player* a_player)
 	{
 		for (int i = 0; i < m_cannonList.size(); i++)
 		{
-			m_cannonList[i]->HitCheckBullet(a_player);
+			m_cannonList[i]->HitCheckBullet(a_pOwner);
 		}
 	}
 	else
 	{
 
-		for (int i = 0; i < a_player->GetBulletSize(); i++)
+		for (int i = 0; i < a_pOwner->GetPlayer()->GetBulletSize(); i++)
 		{
 
-			if (CircleCD(*a_player->GetBulletData(i), m_data))
+			if (CircleCD(*a_pOwner->GetPlayer()->GetBulletData(i), m_data))
 			{
 				//ヒットパーティクル生成
 				for (int z = 0; z < HIT_NUM; z++)
 				{
-					MakeHit(*a_player->GetBulletData(i), { 2,2 });
+					MakeHit(*a_pOwner->GetPlayer()->GetBulletData(i), { 2,2 });
 				}
 
 				SetHP(1);
@@ -223,7 +223,9 @@ void C_Boss::HitCheckBullet(C_Player* a_player)
 				damageDelay = 30;
 
 				//当たっていたら敵と弾を消す
-				a_player->SetBulletAlive(false, i);
+				a_pOwner->GetPlayer()->SetBulletAlive(false, i);
+
+				a_pOwner->SetScore(1000);
 
 			}
 		}
@@ -456,44 +458,72 @@ void C_Boss::MakeBom(OBJData a_data, int num)
 //ボスの移動
 void C_Boss::Move()
 {
-	static float m_deg = 180;
 
 	m_data.m_move.y = 0;
 
-	if (m_deg++ > 360)
+	if (moveDeg++ > 360)
 	{
 
-		m_deg -= 360;
+		moveDeg -= 360;
 
 	}
 
-	m_data.m_move.x = cos(DirectX::XMConvertToRadians(m_deg)) * 3;
+	m_data.m_move.x = cos(DirectX::XMConvertToRadians(moveDeg)) * 3;
 
-	m_data.m_move.y = cos(DirectX::XMConvertToRadians(m_deg * 2)) * 0.5;
+	m_data.m_move.y = cos(DirectX::XMConvertToRadians(moveDeg * 2)) * 0.5;
 
 }
-
 
 
 //画像のセット
 void C_Boss::SetTex(Scene* a_pOwner)
 {
-	m_data.m_pTex = &a_pOwner->GetBossTex()->bossTex;
-	m_pBulletTex = &a_pOwner->GetObjectTex()->bulletTex;
-	m_pBomTex = &a_pOwner->GetObjectTex()->p_bomTex;
-	m_pVoltTex = &a_pOwner->GetBossTex()->voltTex;
-	m_pMissileTex = &a_pOwner->GetBossTex()->missileTex;
+	m_data.m_pTex = &a_pOwner->GetTex()->bossTex;
+	m_pBulletTex = &a_pOwner->GetTex()->bulletTex;
+	m_pBomTex = &a_pOwner->GetTex()->p_bomTex;
+	m_pVoltTex = &a_pOwner->GetTex()->voltTex;
+	m_pMissileTex = &a_pOwner->GetTex()->missileTex;
 
 	//大砲の作成
 	for (int i = 0; i < CANNON_NUM; i++)
 	{
 		shared_ptr<C_Cannon> tmpA = make_shared<C_Cannon>();
 		tmpA->SetCannonType(i);
-		i < CANNON_NUM / 2 ? tmpA->SetTex(&a_pOwner->GetBossTex()->cannonUTex, a_pOwner) : tmpA->SetTex(&a_pOwner->GetBossTex()->cannonDTex, a_pOwner);
+		i < CANNON_NUM / 2 ? tmpA->SetTex(&a_pOwner->GetTex()->cannonUTex, a_pOwner) : tmpA->SetTex(&a_pOwner->GetTex()->cannonDTex, a_pOwner);
 		tmpA->Init();
+		tmpA->SetPos(m_data.m_pos);
 		m_cannonList.push_back(tmpA);
 	}
+
+	m_pOwner = a_pOwner;
+
 }
+
+void C_Boss::CommitPos(Math::Vector3 a_move)
+{
+	m_data.m_pos += (m_data.m_move + a_move);
+	m_scaleMat = Math::Matrix::CreateScale(m_size);
+	m_transMat = Math::Matrix::CreateTranslation(m_data.m_pos);
+	m_data.m_mat = m_scaleMat * m_transMat;
+
+	for (int i = 0; i < m_cannonList.size(); i++)
+	{
+		m_cannonList[i]->CommitPos(a_move);
+	}
+
+	for (int i = 0; i < m_bullet.size(); i++)
+	{
+		m_bullet[i]->CommitPos(a_move);
+	}
+
+
+	for (int i = 0; i < m_particle.size(); i++)
+	{
+		m_particle[i]->CommitPos(a_move);
+	}
+}
+
+
 
 void C_Boss::DeleteManager()
 {
@@ -529,7 +559,7 @@ void C_Boss::DeleteManager()
 	auto ti = m_cannonList.begin();
 	while (ti != m_cannonList.end())
 	{
-		if (!(*ti)->GetAlive()&&(*ti)->GetSize()<=0)
+		if (!(*ti)->GetAlive() && (*ti)->GetSize() <= 0)
 		{
 			ti = m_cannonList.erase(ti);
 		}

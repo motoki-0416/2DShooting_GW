@@ -1,17 +1,38 @@
 #include "Title_Option.h"
 #include "Application/Scene.h"
+#include "Application/Program/selectButton/SelectButton.h"
 
-void C_TitleOption::Init()
+void C_TitleOption::Init(Scene* a_pOwner)
 {
 	bTapFlg = false;
 	sceneOption = Volume;
 
-	m_option= { {128,72,0},m_option.SIZE / 2,{0,0,0},MAX_ALPHA,{Math::Matrix::CreateTranslation(m_option.m_pos)},{nullptr} };
-	m_back = { {64,64,0},m_back.SIZE / 2,{0,-200,0},MAX_ALPHA,{Math::Matrix::CreateTranslation(m_back.m_pos)},{nullptr} };
+	m_buttonList = make_shared<C_SelectButton>();
 
-	m_select = { {64,64,0},m_select.SIZE / 2,{-100,m_option.m_pos.y,0},MAX_ALPHA,{Math::Matrix::CreateTranslation(m_select.m_pos)},{nullptr} };
+	m_vol = make_shared<BASE>();
+	m_vol->SIZE = { 300,300,0 };
+	m_vol->HALF_SIZE = m_vol->SIZE / 2;
+	m_vol->m_pos = { 0.0f,0.0f,0.0f };
+	m_vol->m_alpha = 0.0f;
+	m_vol->m_mat = {};
+	m_vol->m_pTex = &a_pOwner->GetTex()->titleOptionTex;
+	m_buttonList->AddButton(m_vol);
 
+	m_back = make_shared<BASE>();
+	m_back->SIZE = { 64,64,0 };
+	m_back->HALF_SIZE = m_back->SIZE / 2;
+	m_back->m_pos = { 0.0f,-300.0f,0.0f };
+	m_back->m_alpha = 0.0f;
+	m_back->m_mat = {};
+	m_back->m_pTex =&a_pOwner->GetTex()->titleBackTex;
+	m_buttonList->AddButton(m_back);
+
+
+
+	m_buttonList->Init(a_pOwner, 0.0f);
+	m_buttonList->SetNum(BUTTON_NUM);
 	volume = 0.25;
+
 }
 
 void C_TitleOption::Draw()
@@ -24,76 +45,44 @@ void C_TitleOption::Draw()
 	color = { 0.0f,0.0f,0.0f,0.5f };
 	SHADER.m_spriteShader.DrawBox(0, 0, 560, 280, &color, true);
 
-	SHADER.m_spriteShader.SetMatrix(m_option.m_mat);
-	SHADER.m_spriteShader.DrawTex(m_option.m_pTex, Math::Rectangle(0, 0, m_option.SIZE.x, m_option.SIZE.y), m_option.m_alpha);
+	m_buttonList->Draw();
 
-	SHADER.m_spriteShader.SetMatrix(m_back.m_mat);
-	SHADER.m_spriteShader.DrawTex(m_back.m_pTex, Math::Rectangle(0, 0, m_back.SIZE.x, m_back.SIZE.y), m_back.m_alpha);
-
-	//ëIëñÓàÛ
-	SHADER.m_spriteShader.SetMatrix(m_select.m_mat);
-	SHADER.m_spriteShader.DrawTex(m_select.m_pTex, Math::Rectangle(0, 0, m_select.SIZE.x, m_select.SIZE.y), m_select.m_alpha);
 }
 
 bool C_TitleOption::Update(bool a_bSpace)
 {
-	Select();
+	switch (m_buttonList->Update())
+	{
+	case 0://volume
+		VolumeChange();
+		break;
+
+	case 1:
+
+
+		if (!a_bSpace && GetAsyncKeyState(VK_SPACE) & 0x8000)
+		{
+			return true;
+		}
+		break;
+
+	default:
+		break;
+	}
 
 	if (sceneOption == Volume)
 	{
-		VolumeChange();
-	}
 
-	if (sceneOption==Back&&!a_bSpace && GetAsyncKeyState(VK_SPACE) & 0x8000)
-	{
-		return true;
 	}
 
 	return NULL;
 }
 
-void C_TitleOption::SetTex(Scene* a_pOwner)
-{
-	m_option.m_pTex = &a_pOwner->GetTitleTex()->titleOptionTex;
-	m_back.m_pTex = &a_pOwner->GetTitleTex()->titleBackTex;
-	m_select.m_pTex = &a_pOwner->GetTitleTex()->titileSelectTex;
-}
-
-void C_TitleOption::Select()
-{
-	if ((GetAsyncKeyState(VK_UP) & 0x8000 || GetAsyncKeyState(VK_DOWN) & 0x8000))
-	{
-
-		if (bTapFlg)return;
-
-		switch (sceneOption)
-		{
-		case Volume:
-			m_select.m_pos.y = m_back.m_pos.y;
-			m_select.m_mat = Math::Matrix::CreateTranslation(m_select.m_pos);
-			sceneOption = Back;
-			break;
-
-		case Back:
-			m_select.m_pos.y = m_option.m_pos.y;
-			m_select.m_mat = Math::Matrix::CreateTranslation(m_select.m_pos);
-			sceneOption = Volume;
-			break;
-		default:
-			break;
-		}
-		bTapFlg = true;
-	}
-	else
-	{
-		bTapFlg = false;
-	}
-}
 
 //âπó í≤êÆÅô
 void C_TitleOption::VolumeChange()
 {
-	static  int delay=0;
+	static  int delay = 0;
 
 	if (delay <= 0)
 	{

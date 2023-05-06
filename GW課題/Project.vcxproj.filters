@@ -85,9 +85,6 @@
     <Filter Include="Src\Application\Particle\shine">
       <UniqueIdentifier>{4a45b92b-606c-4113-a935-1e577967e44a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Event\SstopEvent">
-      <UniqueIdentifier>{899e04cb-5025-4625-a8ed-cb93dc0fbc1e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Oblect\Enemy\Boss">
       <UniqueIdentifier>{65b394a4-f415-4e0e-ba6d-7bace68eeeb3}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,51 @@
     </Filter>
     <Filter Include="Src\Application\Oblect\Bullet\Missile">
       <UniqueIdentifier>{cdf3ea18-bce4-4596-98e5-ab094825dbfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\UI">
+      <UniqueIdentifier>{ae338614-9051-40e2-bf49-3f1e8bc6baaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\UI\HP">
+      <UniqueIdentifier>{401516a1-4b4c-47c8-8191-f9772a79dbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\UI\UI_Score">
+      <UniqueIdentifier>{93bae3eb-7f03-4eeb-97b1-fbed1e6107e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\Boss">
+      <UniqueIdentifier>{a76cbf3b-506a-42b2-8983-4ac5b27ef092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\End">
+      <UniqueIdentifier>{333bfd30-e6b6-45ab-92aa-97207e9707e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Program\Slrow">
+      <UniqueIdentifier>{68c437ea-a3f7-449b-a494-813af71c2404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene">
+      <UniqueIdentifier>{1c16ce99-07b5-4b40-9b10-1bb0c651add7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\Title">
+      <UniqueIdentifier>{8a5e6c99-5edb-4c36-97f6-59597fb0c1ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\Game">
+      <UniqueIdentifier>{00411265-1f6e-4f79-9500-7ae233c40417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\Result">
+      <UniqueIdentifier>{6a117c7c-c6e6-4158-9e7d-fe6a9a89ba9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Result">
+      <UniqueIdentifier>{25328475-ee6a-466e-9e68-4fafa6bc94ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Result\Number">
+      <UniqueIdentifier>{174b1c21-6946-4d57-9de8-891c67fc68ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Result\Return">
+      <UniqueIdentifier>{86444375-5a11-4140-9fd1-403280846942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Program\SelectButton">
+      <UniqueIdentifier>{9dd84177-e56e-4b71-b4e1-260456563829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\StopEvent">
+      <UniqueIdentifier>{899e04cb-5025-4625-a8ed-cb93dc0fbc1e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +301,7 @@
       <Filter>Src\Application\Particle\shine</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Event\StopEvent\Event_Stop.h">
-      <Filter>Src\Application\Event\SstopEvent</Filter>
+      <Filter>Src\Application\Event\StopEvent</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Enemy\Boss\Boss.h">
       <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
@@ -284,6 +326,48 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Enemy\Boss\Cannon.h">
       <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\UI\BaseUI.h">
+      <Filter>Src\Application\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\UI\UI.h">
+      <Filter>Src\Application\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\UI\HP\UI_HP.h">
+      <Filter>Src\Application\UI\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\UI\Score\UI_Score.h">
+      <Filter>Src\Application\UI\UI_Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Event\Boss\Event_Boss.h">
+      <Filter>Src\Application\Event\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Event\End\Event_End.h">
+      <Filter>Src\Application\Event\End</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Program\Slow\Slow.h">
+      <Filter>Src\Application\Program\Slrow</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\BaseScene.h">
+      <Filter>Src\Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Title\Scene_Title.h">
+      <Filter>Src\Application\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Game\Scene_Game.h">
+      <Filter>Src\Application\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Result\Scene_Result.h">
+      <Filter>Src\Application\Scene\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Result\Number\Result_Number.h">
+      <Filter>Src\Application\Result\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Result\Return\ReturnButton.h">
+      <Filter>Src\Application\Result\Return</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Program\selectButton\SelectButton.h">
+      <Filter>Src\Application\Program\SelectButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -402,7 +486,7 @@
       <Filter>Src\Application\Particle\shine</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Event\StopEvent\Event_Stop.cpp">
-      <Filter>Src\Application\Event\SstopEvent</Filter>
+      <Filter>Src\Application\Event\StopEvent</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Enemy\Boss\Boss.cpp">
       <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
@@ -427,6 +511,48 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Enemy\Boss\Cannon.cpp">
       <Filter>Src\Application\Oblect\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\UI\BaseUI.cpp">
+      <Filter>Src\Application\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\UI\UI.cpp">
+      <Filter>Src\Application\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\UI\HP\UI_HP.cpp">
+      <Filter>Src\Application\UI\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\UI\Score\UI_Score.cpp">
+      <Filter>Src\Application\UI\UI_Score</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Event\Boss\Event_Boss.cpp">
+      <Filter>Src\Application\Event\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Event\End\Event_End.cpp">
+      <Filter>Src\Application\Event\End</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Program\Slow\Slow.cpp">
+      <Filter>Src\Application\Program\Slrow</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\BaseScene.cpp">
+      <Filter>Src\Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Title\Scene_Title.cpp">
+      <Filter>Src\Application\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Game\Scene_Game.cpp">
+      <Filter>Src\Application\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Result\Scene_Result.cpp">
+      <Filter>Src\Application\Scene\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Result\Number\Result_Number.cpp">
+      <Filter>Src\Application\Result\Number</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Result\Return\ReturnButton.cpp">
+      <Filter>Src\Application\Result\Return</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Program\selectButton\SelectButton.cpp">
+      <Filter>Src\Application\Program\SelectButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

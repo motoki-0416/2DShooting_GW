@@ -14,7 +14,6 @@ public:
 
 	//“®‚«
 	void Move();
-
 	//‹…ì¬-UŒ‚
 	void MakeBullet();
 

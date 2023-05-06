@@ -26,7 +26,7 @@ public:
 
 	void SetCannonType(int a_type)	{ m_cannonType = (CannonType)a_type; }
 
-	void HitCheckBullet(C_Player* a_player)override;
+	void HitCheckBullet(C_SceneGame* a_pOwner)override;
 
 private:
 

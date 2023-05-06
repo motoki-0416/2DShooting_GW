@@ -20,15 +20,16 @@ public:
 	virtual void SetPos(Math::Vector3 a_pos) { m_data.m_pos = a_pos; m_data.m_mat = Math::Matrix::CreateTranslation(m_data.m_pos); }
 	virtual void SetMove(Math::Vector3 a_move) { m_data.m_move = a_move; }
 
+	virtual void CommitPos(Math::Vector3 a_move);
+
 	const bool GetAlive() { return m_bAlive; }
 	
 protected:
 
 	bool m_bAlive;
-	float m_alpha;
 	float m_size;
 
-	OBJData m_data = { {16,16,0},m_data.SIZE / 2,{0,0,0},{0,0,0},{Math::Matrix::Identity},nullptr };
+	OBJData m_data = { {16,16,0},m_data.SIZE / 2,{0,0,0},{0,0,0},1.0f,{Math::Matrix::Identity},nullptr };
 
 	Math::Matrix m_transMat;
 	Math::Matrix m_scaleMat;

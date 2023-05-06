@@ -11,11 +11,10 @@ public:
 	~C_EventStart(){}
 
 	void Init()override;
-	bool Update()override;
+	void Update()override;
 	void Draw()override;
 
-
-	void SetTex(Scene* a_pOwner);
+	void SetTex(Scene* a_pOwner)override;
 
 private:
 	bool m_bFlg;

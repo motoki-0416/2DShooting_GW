@@ -19,12 +19,6 @@ void C_PBom::Update()
 		m_bAlive = false;
 	}
 
-	m_data.m_pos += m_data.m_move;
-
-	m_scaleMat = DirectX::XMMatrixScaling(m_size, m_size, 0.0f);
-	m_transMat = Math::Matrix::CreateTranslation(m_data.m_pos);
-	m_data.m_mat = m_scaleMat * m_transMat;
-
 	delay--;
 }
 

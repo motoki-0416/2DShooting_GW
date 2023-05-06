@@ -1,10 +1,10 @@
 #include "Title.h"
 #include"Application/Scene.h"
 
-void C_Title::Init()
+void C_Title::Init(Scene* a_pOwner)
 {
 	sceneTitle = Name;
-	m_menu.Init();
+	m_menu.Init(a_pOwner);
 	m_name.Init();
 }
 
@@ -56,7 +56,6 @@ bool C_Title::Update(bool a_bSpace)
 
 void C_Title::SetTex(Scene* a_pOwner)
 {
-	m_back.m_pTex = &a_pOwner->GetTitleTex()->titleBackGroundTex;
+	m_back.m_pTex = &a_pOwner->GetTex()->titleBackGroundTex;
 	m_name.SetTex(a_pOwner);
-	m_menu.SetTex(a_pOwner);
 }
