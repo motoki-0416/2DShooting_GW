@@ -10,11 +10,14 @@
 #include "Application/Event/Event.h"
 #include "Application/BlackOut/BlackOut.h"
 
+
 #include "Application/Back/Back.h"
 #include "Application/Object/Enemy/enemy.h"
 #include "Application/Object/Enemy/MoveEnemy/MoveEnemy.h"
 #include "Application/Object/Enemy/MiniBoss/MiniBoss.h"
-#include "Application/Object/Enemy/Boss/Boss.h"
+#include "Application/Object/Enemy/widthEnemy/widthEnemy.h"
+
+
 #include "Application/Object/Player/Player.h"
 
 //初期化
@@ -25,8 +28,10 @@ void C_SceneGame::Init(Scene* a_pOwner)
 	//変数
 	enemyDelay = 40;
 	moveEnemyDelay = 300;
+	widthEnemyDelay = 100;
 	delayDown = 0;
 	//敵の初期化
+	widthEnemyFlg = false;
 	miniBossFlg = false;
 	bossFlg = false;
 
@@ -64,7 +69,11 @@ void C_SceneGame::Update()
 	//シーンチェンジ  イベントがリザルトor自機が死亡
 	if (m_event->GetEvent() == C_Event::Event::result || m_event->GetEvent() == C_Event::Event::ded)
 	{
-		if (GetBlackOutData()->ChangeAlpha(true))sceneChange = true;
+		if (GetBlackOutData()->ChangeAlpha(true))
+		{
+			anyFlg = m_player->GetAlive();
+			sceneChange = true;
+		}
 	}
 
 	//UI
@@ -135,25 +144,49 @@ void C_SceneGame::SetSlow(int a_stop)
 //生成
 void C_SceneGame::CreateManager(int a_eve)
 {
+	static bool m_eve=true;
+
 	switch (a_eve)
 	{
-	case 2://中ボス
-		delayDown = 10;
-		
+
 	case 1://スタート
 	case 3://ボス
 	case 4://ボス撃退後
 	case 6://リザルト画面へ
+		m_eve = false;
+		widthEnemyFlg = false;
 		return;
+
+	case 2://中ボス
+		m_eve = false;
+		delayDown = 10;
+		widthEnemyFlg = true;
+		break;
 	default:
+		m_eve = true;
 		break;
 	}
 
-	if (moveEnemyDelay-- <= 0)
+	//横
+	if (widthEnemyFlg && widthEnemyDelay-- <= 0)
 	{
-		
+		float posX = rand() % 2 * 680 - 340;
+		shared_ptr<C_WidthEnemy> tmpA = make_shared<C_WidthEnemy>();
+		tmpA->SetPos({ posX,320.0f,0});
+		tmpA->Init();
+		tmpA->SetType(enemyNormal);
+		tmpA->SetTex(&m_pOwner->GetTex()->widthEnemyTex, m_pOwner);
+		m_enemy.push_back(tmpA);
+
+		widthEnemyDelay = 200;
+	}
+
+	//ムーブ
+	if (moveEnemyDelay-- <= 0&&m_eve)
+	{
+
 		float posX = rand() % 200 - 100;
-		
+
 		for (int i = 0; i < 3; i++)
 		{
 			shared_ptr<C_MoveEnemy> tmpA = make_shared<C_MoveEnemy>();
@@ -164,14 +197,16 @@ void C_SceneGame::CreateManager(int a_eve)
 			tmpA->SetTex(&m_pOwner->GetTex()->moveEnemyTex, m_pOwner);
 			m_enemy.push_back(tmpA);
 		}
-		
-		moveEnemyDelay = 300;
-	
+
+		moveEnemyDelay = 250;
+
 	}
 
-	if (enemyDelay-- <= 0)
+
+	//通常
+	if (enemyDelay-- <= 0&&m_eve)
 	{
-	
+
 		shared_ptr<C_Enemy> tmpA = make_shared<C_Enemy>();
 		tmpA->Init();
 		float posX = rand() % 600 - 300;
@@ -181,7 +216,7 @@ void C_SceneGame::CreateManager(int a_eve)
 		m_enemy.push_back(tmpA);
 
 		enemyDelay = 40 - delayDown;
-	
+
 	}
 
 }
@@ -197,12 +232,15 @@ void C_SceneGame::DeleteManager(bool a_bFlg)
 		if ((!(*en)->GetAlive() && (*en)->GetSize() <= 0) || a_bFlg)
 		{
 
+			enemyDedNum++;
 			en = m_enemy.erase(en);
 
 		}
 		else
 		{
+
 			en++;
+
 		}
 	}
 }

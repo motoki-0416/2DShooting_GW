@@ -76,7 +76,6 @@ void C_Event::Update(C_Back& a_back)
 
 		if (event == Event::null)
 		{
-			a_back.SetMove(0);
 			shared_ptr<C_EventBoss> bo = make_shared<C_EventBoss>();
 			bo->SetTex(m_pOwner);
 			bo->SetSceneGame(m_pSceneGame);
@@ -91,6 +90,7 @@ void C_Event::Update(C_Back& a_back)
 	//èIóπ
 	else if (bossFlg && !endFlg)
 	{
+
 		if (event == Event::null)
 		{
 			a_back.SetMove(0);

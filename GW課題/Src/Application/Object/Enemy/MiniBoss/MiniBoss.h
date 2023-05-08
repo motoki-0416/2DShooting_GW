@@ -13,14 +13,14 @@ public:
 
 	void Init()override;
 	void Update()override;
-	void Draw()override;
-
+	
 	void Move();
 
 	void MakeBom()override;
 
 	//ãÖçÏê¨-çUåÇ
 	void MakeBullet();
+	void PlayerCD(C_Player& a_player)override;
 	void HitCheckBullet(C_SceneGame* a_pOwner)override;
 
 private:
@@ -28,9 +28,7 @@ private:
 	bool startFlg;
 	int atkDelay;
 
-	static const int MAX_DELAY = 30;
-	int damageDelay;
-	static const int MAX_HP = 250;
+	static const int MAX_HP = 180;
 
 
 	static const int ENEMY_MOVE_Y = -10;

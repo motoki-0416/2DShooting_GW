@@ -5,13 +5,16 @@
 
 void C_UIScore::Init()
 {
+
 	for (int i = 0; i < NUMBER_NUM; i++)
 	{
-		m_number[i] = {{32,32,0},m_number[i].SIZE / 2,{},1.0f,{Math::Matrix::Identity},nullptr};
 
-		m_number[i].m_pos = { 600-(m_number[i].SIZE.x * i-i*12),0,0};
+		m_number[i] = {{32,47,0},m_number[i].SIZE / 2,{},1.0f,{Math::Matrix::Identity},nullptr};
+
+		m_number[i].m_pos = { 570-(m_number[i].SIZE.x * i-i*12),-120,0};
 
 		m_src[i].numSrc = 0;
+	
 	}
 
 }
@@ -21,6 +24,8 @@ void C_UIScore::Update(C_SceneGame* a_pOwner)
 
 	scoreList = a_pOwner->GetScore();
 
+	Math::Matrix scaleMat=Math::Matrix::CreateScale(1.3);
+
 	//スコア計算
 	for (int i = 0; i < NUMBER_NUM; i++)
 	{
@@ -29,7 +34,7 @@ void C_UIScore::Update(C_SceneGame* a_pOwner)
 		m_src[i].numSrc = scoreList / pow(10, i);
 		m_src[i].numSrc %= 10;
 
-		m_number[i].m_mat = Math::Matrix::CreateTranslation(m_number[i].m_pos);
+		m_number[i].m_mat = scaleMat*Math::Matrix::CreateTranslation(m_number[i].m_pos);
 	
 
 	}

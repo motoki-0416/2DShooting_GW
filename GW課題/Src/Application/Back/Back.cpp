@@ -4,6 +4,7 @@
 
 void C_Back::Init()
 {
+	plusPosY = 0;
 	m_back.m_pos = { 0,m_back.HALF_SIZE.y-HALF_HEIGHT,0 };
 	m_scalMat = Math::Matrix::CreateScale({1.1,1,1 });
 	m_transMat = Math::Matrix::CreateTranslation(m_back.m_pos);
@@ -37,6 +38,14 @@ void C_Back::Update()
 	}
 	
 	m_back.m_pos += m_back.m_move;
+	plusPosY += m_back.m_move.y;
+
+	if (m_back.m_pos.y <-m_back.HALF_SIZE.y + HALF_HEIGHT)
+	{
+		m_back.m_move = {};
+		m_back.m_pos.y = -m_back.HALF_SIZE.y + HALF_HEIGHT;
+	}
+
 	m_transMat= Math::Matrix::CreateTranslation(m_back.m_pos);
 		
 	m_back.m_mat = m_scalMat * m_transMat;

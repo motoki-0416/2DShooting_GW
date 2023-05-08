@@ -20,7 +20,7 @@ void C_Cannon::Init()
 	m_data.HALF_SIZE = m_data.SIZE / 2;
 
 	damageDelay = 0;
-	m_hp = 50;
+	m_hp = 30;
 }
 
 void C_Cannon::Draw()

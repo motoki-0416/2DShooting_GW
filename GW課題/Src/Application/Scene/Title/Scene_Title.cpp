@@ -11,7 +11,7 @@ void C_SceneTitle::Init(Scene* a_pOwner)
 
 	m_player = make_shared<C_Player>();
 	m_player->Init();
-	m_player->SetPos({ -200, 0, 0 });
+	m_player->SetPos({ -220, 0, 0 });
 	m_player->SetTex(a_pOwner);
 }
 

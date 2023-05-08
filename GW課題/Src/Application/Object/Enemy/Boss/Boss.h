@@ -33,7 +33,6 @@ public:
 	void MakeHoming();
 
 
-
 	void MakeBom(OBJData a_data, int num = 1);
 	void MakeVolt();
 
@@ -51,7 +50,7 @@ public:
 private:
 	Scene* m_pOwner;
 
-	static const int MAX_HP = 300;
+	static const int MAX_HP = 150;
 	static const int MAX_CANNONHP = 80;
 	static const int CANNON_NUM = 4;
 	static const int ENEMY_MOVE_Y = -10;
@@ -63,16 +62,12 @@ private:
 
 	Math::Vector3 playerPos;
 
-
-	int damageDelay;
-
 	Atk m_atk;
 	int atkDelay;
 
 	//‘å–C
 	vector<shared_ptr<C_BaseObject>> m_cannonList;
 	bool m_bCannonFlg;
-
 
 	KdTexture* m_pVoltTex;
 	KdTexture* m_pMissileTex;

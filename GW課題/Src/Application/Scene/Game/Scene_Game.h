@@ -52,6 +52,9 @@ private:
 	int enemyDelay;
 	int moveEnemyDelay;
 
+	bool widthEnemyFlg;
+	int widthEnemyDelay;
+
 	//îwåi
 	shared_ptr<C_Back> m_back;
 

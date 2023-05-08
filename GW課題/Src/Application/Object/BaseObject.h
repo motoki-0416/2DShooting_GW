@@ -33,7 +33,8 @@ public:
 	void SetAlive(bool a_alive) { m_bAlive = a_alive; }
 	virtual void SetTex(KdTexture* a_pTex, Scene* a_pOwner);
 	virtual void SetType(EnemyType i) { m_type = i; }
-	void SetHP(int i) { m_hp -= i; if (m_hp <= 0) { m_bAlive = false; } }
+	void SetHP(int i) { m_hp -= i; if (m_hp <= 0) {
+		MakeBom(); m_bAlive = false; } }
 	void SetCDFlg(bool i) { cdFlg = i; }
 
 	virtual const bool GetAlive() { return m_bAlive; }
@@ -62,6 +63,10 @@ protected:
 	EnemyType m_type;
 	bool m_bAlive;
 	float m_size;
+
+	static const int MAX_DELAY = 30;
+	int damageDelay;
+
 	static const int MOVE_Y = -1;
 
 	int m_hp;

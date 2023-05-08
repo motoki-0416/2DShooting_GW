@@ -89,44 +89,6 @@ void C_MiniBoss::Update()
 
 }
 
-void C_MiniBoss::Draw()
-{
-	if (m_bAlive)
-	{
-		Math::Color color = { 1.0f,1.0f,1.0f,1.0f };
-		if (damageDelay > 0)color = { 1.0f,0.5f,0.5f,1.0f };
-
-		Math::Rectangle m_srcRect = { 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y };
-
-		SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
-
-		if (damageDelay > 0 && damageDelay % 3)
-		{
-
-			Math::Color a_color = { 1.0f,0.7f,0.7f,1.0f };
-			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &a_color, Math::Vector2(0.5f, 0.5f));
-
-		}
-		else
-		{
-
-			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &color, Math::Vector2(0.5f, 0.5f));
-
-		}
-	}
-
-	for (int i = 0; i < m_bullet.size(); i++)
-	{
-		m_bullet[i]->Draw();
-	}
-
-	for (int i = 0; i < m_particle.size(); i++)
-	{
-		m_particle[i]->Draw();
-	}
-}
-
-
 void C_MiniBoss::Move()
 {
 
@@ -173,6 +135,31 @@ void C_MiniBoss::MakeBullet()
 	}
 
 	atkDelay = 60;
+
+}
+
+void C_MiniBoss::PlayerCD(C_Player& a_player)
+{
+	if (!a_player.GetAlive() || !cdFlg)return;
+	//ìGÇÃãÖ
+	for (int i = 0; i < m_bullet.size(); i++)
+	{
+		if (CircleCD(*m_bullet[i]->GetData(), *a_player.GetData()) && m_bullet[i]->GetAlive())
+		{
+			//ìGÇ∆ê⁄êGÇ≈é©ã@Ç…É_ÉÅÅ[ÉW
+			m_bullet[i]->SetAlive(false);
+			a_player.SetHP(1);
+		}
+	}
+
+	if (!m_bAlive)return;
+	//ìGñ{ëÃ
+	if (CircleCD(m_data, *a_player.GetData()) && m_bAlive)
+	{
+		//ìGÇ∆ê⁄êGÇ≈é©ã@Ç…É_ÉÅÅ[ÉW
+		MakeBom();
+		a_player.SetHP(1);
+	}
 
 }
 

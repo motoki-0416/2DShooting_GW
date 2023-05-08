@@ -26,6 +26,7 @@ void Scene::Update()
 	{
 		int score = 0;
 		int enemyDed = 0;
+		bool m_gameFlg = false;
 		shared_ptr<C_BlackOut> tmpA = m_scene->GetBlackOutData();
 
 		switch (m_scene->GetType())
@@ -40,11 +41,12 @@ void Scene::Update()
 		case C_BaseScene::SceneType::scene_game:
 			score = m_scene->GetScore();
 			enemyDed = m_scene->GetEnemyDed();
+			m_gameFlg = m_scene->GetAnyFlg();
 
 			m_scene = make_shared<C_SceneResult>();
 			m_scene->SetType(C_BaseScene::SceneType::scene_result);
 			m_scene->SetResult(score, enemyDed);
-			m_scene->Init(this);
+			m_scene->Init(this,m_gameFlg);
 			m_scene->SetBlackOutData(tmpA);
 			break;
 		case C_BaseScene::SceneType::scene_result:
@@ -97,6 +99,8 @@ void Scene::LoadTex()
 	m_texID.miniBossTex.Load("Texture/miiniBoss.png");
 
 	m_texID.numberTex.Load("Texture/number.png");
+	m_texID.m_scoreTex.Load("Texture/SCORE.png");
+	m_texID.m_hpTex.Load("Texture/HP.png");
 
 	m_texID.bossTex.Load("Texture/Boss.png");
 	m_texID.cannonUTex.Load("Texture/cannonU.png");
@@ -114,16 +118,20 @@ void Scene::LoadTex()
 	m_texID.playerTex.Load("Texture/player.png");
 	m_texID.enemyTex.Load("Texture/enemy.png");
 	m_texID.moveEnemyTex.Load("Texture/moveEnemy.png");
+	m_texID.widthEnemyTex.Load("Texture/enemy2.png");
+
+	m_texID.bossIconTex.Load("Texture/bossIcon.png");
 
 	m_texID.bulletTex.Load("Texture/bullet.png");
 	m_texID.p_hitTex.Load("Texture/bullet.png");
 	m_texID.p_bomTex.Load("Texture/explosion.png");
 
-	m_texID.result_GameTex.Load("Texture/Game.png");
 	m_texID.result_RetryTex.Load("Texture/retry.png");
 	m_texID.result_TitleTex.Load("Texture/title.png");
+	m_texID.resultTex.Load("Texture/Result.png");
+	m_texID.resultRankTex.Load("Texture/Rank.png");
 
-	m_texID.resultTex.Load("Texture/002.png");
+	m_texID.result_BackTex.Load("Texture/002.png");
 
 }
 
@@ -134,6 +142,7 @@ void Scene::Init()
 	m_scene = make_shared<C_SceneTitle>();
 	m_scene->SetType(C_BaseScene::SceneType::scene_title);
 	m_scene->Init(this);
+	m_scene->Init(this, true);
 
 	srand(timeGetTime());
 
@@ -162,6 +171,8 @@ void Scene::Release()
 	m_texID.missileTex.Release();
 
 	m_texID.numberTex.Release();
+	m_texID.m_scoreTex.Release();
+	m_texID.m_hpTex.Release();
 
 	m_texID.miniBossTex.Release();
 	m_texID.eventStartTex.Release();
@@ -170,24 +181,26 @@ void Scene::Release()
 
 	m_texID.backTex.Release();
 	m_texID.playerTex.Release();
+
 	m_texID.enemyTex.Release();
 	m_texID.moveEnemyTex.Release();
+	m_texID.widthEnemyTex.Release();
+	m_texID.bossIconTex.Release();
 
 	m_texID.bulletTex.Release();
 	m_texID.p_hitTex.Release();
 	m_texID.p_bomTex.Release();
 
-	m_texID.resultTex.Release();
-	m_texID.result_GameTex.Release();
+	m_texID.result_BackTex.Release();
 	m_texID.result_RetryTex.Release();
 	m_texID.result_TitleTex.Release();
-
+	m_texID.resultRankTex.Release();
 
 }
 
 void Scene::ImGuiUpdate()
 {
-	//return;
+	return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);
@@ -196,8 +209,7 @@ void Scene::ImGuiUpdate()
 	if (ImGui::Begin("Debug Window"))
 	{
 		
-
-		//ImGui::Text("a : %d", m_play);
+		ImGui::Text("FPS : %d", APP.m_fps);
 
 	}
 	ImGui::End();

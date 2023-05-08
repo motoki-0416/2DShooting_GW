@@ -176,6 +176,7 @@
     <ClInclude Include="Src\Application\Object\BaseObject.h" />
     <ClInclude Include="Src\Application\Object\Enemy\MiniBoss\MiniBoss.h" />
     <ClInclude Include="Src\Application\Object\Enemy\MoveEnemy\MoveEnemy.h" />
+    <ClInclude Include="Src\Application\Object\Enemy\widthEnemy\widthEnemy.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
     <ClInclude Include="Src\Application\Particle\P_Base.h" />
     <ClInclude Include="Src\Application\Particle\P_Bom.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Src\Application\UI\HP\UI_HP.h" />
     <ClInclude Include="Src\Application\UI\Score\UI_Score.h" />
     <ClInclude Include="Src\Application\UI\UI.h" />
+    <ClInclude Include="Src\Application\UI\Way\UI_Way.h" />
     <ClInclude Include="Src\Application\Utility.h" />
     <ClInclude Include="Src\System\Audio\KdAudio.h" />
     <ClInclude Include="src\System\Direct3D\KdDirect3D.h" />
@@ -242,6 +244,7 @@
     <ClCompile Include="Src\Application\Object\BaseObject.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\MiniBoss\MiniBoss.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\MoveEnemy\MoveEnemy.cpp" />
+    <ClCompile Include="Src\Application\Object\Enemy\widthEnemy\widthEnemy.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />
     <ClCompile Include="Src\Application\Particle\P_Base.cpp" />
     <ClCompile Include="Src\Application\Particle\P_Bom.cpp" />
@@ -267,6 +270,7 @@
     <ClCompile Include="Src\Application\UI\HP\UI_HP.cpp" />
     <ClCompile Include="Src\Application\UI\Score\UI_Score.cpp" />
     <ClCompile Include="Src\Application\UI\UI.cpp" />
+    <ClCompile Include="Src\Application\UI\Way\UI_Way.cpp" />
     <ClCompile Include="Src\System\Audio\KdAudio.cpp" />
     <ClCompile Include="src\System\Direct3D\KdDirect3D.cpp" />
     <ClCompile Include="Src\System\Direct3D\KdDirect3DHelper.cpp" />

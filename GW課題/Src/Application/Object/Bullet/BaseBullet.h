@@ -18,7 +18,7 @@ public:
 	void SetTex(KdTexture* a_pTex) { m_data.m_pTex = a_pTex; }
 	void SetPos(Math::Vector3 a_pos) { m_data.m_pos = a_pos; }
 	void SetMove(Math::Vector3 a_move) { m_data.m_move = a_move; }
-	void SetAlpha(float i) { m_data.m_alpha = i; }
+	void SetAlpha(float i);
 
 	//ÉQÉbÉ^Å[
 	const bool GetAlive() { return m_bAlive; }
@@ -28,12 +28,13 @@ public:
 
 	void SetSize(float a_size) { m_size = a_size; };
 	void CommitPos(Math::Vector3 a_move);
-
+	void SetSrc(bool a) { srcFlg = a; }
 	const bool IsScreenOut();
 
 protected:
 	OBJData m_data = { {16,16,0},m_data.SIZE / 5,{0,0,0},{0,0,0},1.0f,{ Math::Matrix::Identity}, {nullptr} };
 	bool m_bAlive;
+	bool srcFlg;
 
 	float m_size;
 	Math::Matrix m_scaleMat;

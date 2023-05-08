@@ -28,6 +28,7 @@ public:
 
 	void MakeBullet();
 	void DeleteManager();
+	void ScreenOut();
 
 	//パーティクル作成
 	void MakeBom(Math::Vector3 a_pos,float size = 1,Math::Vector3 a_move = { 0,0,0});
@@ -50,11 +51,13 @@ public:
 
 	bool CircleCD(const OBJData a_Adata, const OBJData a_Bdata);
 	
+	void Animation();
+
 private:
 
 	C_SceneGame* m_pOwner;
-	OBJData m_data = { {64,64,0},m_data.SIZE / 2,{0,0,0},{0,0,0},1.0f,{Math::Matrix::Identity},nullptr };
-	static const int MAX_HP = 100;
+	OBJData m_data = { {64,80,0},m_data.SIZE / 2,{0,0,0},{0,0,0},1.0f,{Math::Matrix::Identity},nullptr };
+	static const int MAX_HP = 80;
 	int m_hp;
 	bool m_bAlive;
 
@@ -80,4 +83,8 @@ private:
 	static const int DLEAY_MAX = 4;
 	int bomCount;
 	int bomDelay;
+
+	//自機変数
+	static const int ANIMATION_NUM = 3;
+	int animation;
 };

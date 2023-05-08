@@ -40,7 +40,6 @@ void C_EventEnd::Update()
 		}
 		else if(m_gameScene->GetBlackOutData()->ChangeAlpha(true))
 		{
-
 			m_bDeleteFlg = true;
 
 		}
@@ -60,12 +59,5 @@ void C_EventEnd::Draw()
 
 	SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
 	SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle(0, 0, m_data.SIZE.x, m_data.SIZE.y), 1.0f);
-
-}
-
-void C_EventEnd::SetTex(Scene* a_pOwner)
-{
-
-
 
 }

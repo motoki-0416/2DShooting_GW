@@ -3,6 +3,7 @@
 C_BaseBullet::C_BaseBullet()
 {
 	m_size = 1;
+	srcFlg = true;
 	m_bAlive = true;
 }
 
@@ -19,7 +20,19 @@ void C_BaseBullet::Draw()
 {
 	if (!m_bAlive)return;
 	SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
-	SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle(0, 0, m_data.SIZE.x, m_data.SIZE.y), 1.0f);
+	SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle(m_data.SIZE.x*srcFlg, 0, m_data.SIZE.x, m_data.SIZE.y), m_data.m_alpha);
+}
+
+void C_BaseBullet::SetAlpha(float i)
+{
+	m_data.m_alpha -= i;
+
+	if (m_data.m_alpha <= 0.0f)
+	{
+
+		m_bAlive = false;
+
+	}
 }
 
 void C_BaseBullet::CommitPos(Math::Vector3 a_move)

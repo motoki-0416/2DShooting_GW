@@ -82,7 +82,7 @@ void C_Boss::Update()
 
 	for (int i = 0; i < m_bullet.size(); i++)
 	{
-
+		if(!m_bAlive)m_bullet[i]->SetAlpha(0.03);
 		m_bullet[i]->Update();
 
 	}
@@ -160,6 +160,7 @@ void C_Boss::Draw()
 void C_Boss::PlayerCD(C_Player& a_player)
 {
 	if (!a_player.GetAlive())return;
+	if (!m_bAlive)return;
 
 	//“G‚Ì‹…
 	for (int i = 0; i < m_bullet.size(); i++)
@@ -175,7 +176,6 @@ void C_Boss::PlayerCD(C_Player& a_player)
 
 	}
 
-	if (!m_bAlive)return;
 	//“G–{‘Ì
 	if (CircleCD(m_data, *a_player.GetData()) && m_bAlive)
 	{
@@ -231,6 +231,7 @@ void C_Boss::HitCheckBullet(C_SceneGame* a_pOwner)
 		}
 	}
 }
+
 
 
 //UŒ‚‘I‘ð
@@ -297,6 +298,7 @@ void C_Boss::AtkMissile()
 }
 
 
+
 //‰ñ“]UŒ‚
 void C_Boss::AtkRotate()
 {
@@ -357,10 +359,11 @@ void C_Boss::AtkHoming()
 
 		atkDelay = 100;
 
-		m_atk = Atk_Rotate;
+		m_atk = Atk_Missile;
 
 	}
 }
+
 
 
 //‹…‚Ìì¬
@@ -498,6 +501,8 @@ void C_Boss::SetTex(Scene* a_pOwner)
 	m_pOwner = a_pOwner;
 
 }
+
+
 
 void C_Boss::CommitPos(Math::Vector3 a_move)
 {

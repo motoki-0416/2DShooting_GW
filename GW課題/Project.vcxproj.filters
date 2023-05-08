@@ -136,20 +136,26 @@
     <Filter Include="Src\Application\Scene\Result">
       <UniqueIdentifier>{6a117c7c-c6e6-4158-9e7d-fe6a9a89ba9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Result">
-      <UniqueIdentifier>{25328475-ee6a-466e-9e68-4fafa6bc94ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Result\Number">
-      <UniqueIdentifier>{174b1c21-6946-4d57-9de8-891c67fc68ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Result\Return">
-      <UniqueIdentifier>{86444375-5a11-4140-9fd1-403280846942}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Program\SelectButton">
       <UniqueIdentifier>{9dd84177-e56e-4b71-b4e1-260456563829}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Event\StopEvent">
       <UniqueIdentifier>{899e04cb-5025-4625-a8ed-cb93dc0fbc1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\Result">
+      <UniqueIdentifier>{25328475-ee6a-466e-9e68-4fafa6bc94ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\Result\Number">
+      <UniqueIdentifier>{174b1c21-6946-4d57-9de8-891c67fc68ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Event\Result\Return">
+      <UniqueIdentifier>{86444375-5a11-4140-9fd1-403280846942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Oblect\Enemy\widthEnemy">
+      <UniqueIdentifier>{c93a1bc4-da92-45f8-95ea-7deab8b0cffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\UI\Way">
+      <UniqueIdentifier>{4fa0ee28-50f1-4bcd-b613-5af0e8ef73a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -361,13 +367,19 @@
       <Filter>Src\Application\Scene\Result</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Result\Number\Result_Number.h">
-      <Filter>Src\Application\Result\Number</Filter>
+      <Filter>Src\Application\Event\Result\Number</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Result\Return\ReturnButton.h">
-      <Filter>Src\Application\Result\Return</Filter>
+      <Filter>Src\Application\Event\Result\Return</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Program\selectButton\SelectButton.h">
       <Filter>Src\Application\Program\SelectButton</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Enemy\widthEnemy\widthEnemy.h">
+      <Filter>Src\Application\Oblect\Enemy\widthEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\UI\Way\UI_Way.h">
+      <Filter>Src\Application\UI\Way</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -546,13 +558,19 @@
       <Filter>Src\Application\Scene\Result</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Result\Number\Result_Number.cpp">
-      <Filter>Src\Application\Result\Number</Filter>
+      <Filter>Src\Application\Event\Result\Number</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Result\Return\ReturnButton.cpp">
-      <Filter>Src\Application\Result\Return</Filter>
+      <Filter>Src\Application\Event\Result\Return</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Program\selectButton\SelectButton.cpp">
       <Filter>Src\Application\Program\SelectButton</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Enemy\widthEnemy\widthEnemy.cpp">
+      <Filter>Src\Application\Oblect\Enemy\widthEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\UI\Way\UI_Way.cpp">
+      <Filter>Src\Application\UI\Way</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

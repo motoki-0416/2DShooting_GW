@@ -28,13 +28,14 @@ public:
 	//ÉQÉbÉ^Å[
 	const Math::Vector3 GetPos() { return m_back.m_pos; }
 	const OBJData GetData() { return m_back; }
-
+	const int GetPulsPos() { return plusPosY; }
 
 private:
 	
 	OBJData m_back = { {640, 3648, 0}, m_back.SIZE / 2, {0,0,0}, {0,-1,0}, 1.0f,{Math::Matrix::Identity}, {nullptr} };;
 	
 	bool stopFlg;
+	int plusPosY;
 
 	Math::Matrix m_transMat;
 	Math::Matrix m_scalMat;

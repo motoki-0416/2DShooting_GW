@@ -30,23 +30,31 @@ struct TexID
 	KdTexture p_hitTex;
 	KdTexture p_bomTex;
 
+	KdTexture m_scoreTex;
+	KdTexture m_hpTex;
+
 	KdTexture backTex;
 	KdTexture back2Tex;
 	KdTexture playerTex;
+	
 	KdTexture enemyTex;
 	KdTexture moveEnemyTex;
+	KdTexture widthEnemyTex;
+
 	KdTexture miniBossTex;
 	KdTexture bossTex;
 	KdTexture cannonUTex;
 	KdTexture cannonDTex;
 	KdTexture voltTex;
 	KdTexture missileTex;
+	KdTexture bossIconTex;
 
-	KdTexture result_GameTex;
 	KdTexture result_RetryTex;
 	KdTexture result_TitleTex;
-
 	KdTexture resultTex;
+	KdTexture resultRankTex;
+	
+	KdTexture result_BackTex;
 };
 
 

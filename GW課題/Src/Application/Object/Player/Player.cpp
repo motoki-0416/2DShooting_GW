@@ -28,6 +28,7 @@ void C_Player::Init()
 
 	//自機
 	m_bAlive = true;
+	animation = 0;
 	m_hp = MAX_HP;
 	m_data.m_pos = { 0,-400,0 };
 
@@ -39,6 +40,15 @@ void C_Player::Init()
 
 void C_Player::Update(int a_eve)
 {
+
+	//☆
+	if (GetAsyncKeyState('P') & 0x8000)
+	{
+		m_hp = MAX_HP;
+	}
+
+	Animation();
+
 	switch (a_eve)
 	{
 	case 1://スタート
@@ -80,6 +90,9 @@ void C_Player::Update(int a_eve)
 	DeleteManager();
 
 	m_data.m_pos += m_data.m_move;
+
+	ScreenOut();
+
 	m_data.m_mat = Math::Matrix::CreateTranslation(m_data.m_pos);
 }
 
@@ -95,7 +108,7 @@ void C_Player::Draw()
 	if (bomCount < BOM_MAX)
 	{
 		SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
-		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle(0, 0, m_data.SIZE.x, m_data.SIZE.y), 1.0f);
+		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle(0, m_data.SIZE.y*animation, m_data.SIZE.x, m_data.SIZE.y), 1.0f);
 	}
 
 	for (int i = 0; i < m_bom.size(); i++)
@@ -217,12 +230,38 @@ void C_Player::DeleteManager()
 	}
 }
 
+void C_Player::ScreenOut()
+{
+	if (m_data.m_pos.x > 320 - m_data.HALF_SIZE.x)
+	{
+		m_data.m_pos.x = 320 - m_data.HALF_SIZE.x;
+	}
+
+	if (m_data.m_pos.x < -320 + m_data.HALF_SIZE.x)
+	{
+		m_data.m_pos.x = -320 + m_data.HALF_SIZE.x;
+	}
+
+	if (m_data.m_pos.y > 360 - m_data.HALF_SIZE.y)
+	{
+		m_data.m_pos.y = 360 - m_data.HALF_SIZE.y;
+	}
+
+	if (m_data.m_pos.y <-360 + m_data.HALF_SIZE.y)
+	{
+		m_data.m_pos.y = -360 + m_data.HALF_SIZE.y;
+	}
+
+
+}
+
 void C_Player::MakeBullet()
 {
 	shared_ptr<C_Bullet> tmpA = make_shared<C_Bullet>();
 	tmpA->Init();
 	tmpA->SetPos({ m_data.m_pos.x,m_data.m_pos.y + (7 * bulletOffset),m_data.m_pos.z });//座標
 	tmpA->SetMove({ (float)((rand() % 31 - 15) * 0.1),BULLET_MOVE_Y,0 });//移動量
+	tmpA->SetSrc(false);
 	tmpA->SetTex(m_pBulletTex);	//画像
 	m_bullet.push_back(tmpA);
 }
@@ -265,4 +304,17 @@ bool C_Player::CircleCD(const OBJData a_Adata, const OBJData a_Bdata)
 		return true;
 	}
 	return false;
+}
+
+void C_Player::Animation()
+{
+	static int animation_delay = 0;
+	if (animation_delay++ > 5)
+	{
+		animation++;
+		animation_delay = 0;
+	}
+
+	if (ANIMATION_NUM >= animation)animation -= ANIMATION_NUM;
+
 }

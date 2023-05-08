@@ -14,7 +14,7 @@ void C_SelectButton::Init(Scene* a_pOwner, float i)
 	}
 
 	bTapFlg = false;
-	m_select = { {82, 82, 0}, m_select.SIZE / 2, { m_baseList[0]->m_pos.x - m_baseList[0]->HALF_SIZE.x - 60,m_baseList[0]->m_pos.y,0 }, i, { }, { nullptr } };
+	m_select = { {82, 82, 0}, m_select.SIZE / 2, { m_baseList[0]->m_pos.x - m_baseList[0]->HALF_SIZE.x - 20,m_baseList[0]->m_pos.y,0 }, i, { }, { nullptr } };
 	m_select.m_mat = Math::Matrix::CreateTranslation(m_select.m_pos);
 
 	deg = 0;
@@ -93,7 +93,7 @@ void  C_SelectButton::Select()
 	}
 
 
-	m_select.m_pos = { m_baseList[nowSelect]->m_pos.x - m_baseList[nowSelect]->HALF_SIZE.x - 60,m_baseList[nowSelect]->m_pos.y,m_baseList[nowSelect]->m_pos.z };
+	m_select.m_pos = { m_baseList[nowSelect]->m_pos.x - m_baseList[nowSelect]->HALF_SIZE.x - 20,m_baseList[nowSelect]->m_pos.y,m_baseList[nowSelect]->m_pos.z };
 	m_select.m_mat = Math::Matrix::CreateTranslation(m_select.m_pos);
 
 	return;

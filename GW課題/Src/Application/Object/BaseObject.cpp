@@ -13,6 +13,7 @@ C_BaseObject::C_BaseObject()
 	cdFlg = true;
 	m_hp = 1;
 	m_size = 1;
+	damageDelay = 0;
 	m_data.m_move = { 0,MOVE_Y };
 	m_bAlive = true;
 }
@@ -30,6 +31,31 @@ void C_BaseObject::Draw()
 		SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
 		SHADER.m_spriteShader.DrawTex(m_data.m_pTex, Math::Rectangle{ 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y}, m_data.m_alpha);
 	}
+
+	if (m_bAlive)
+	{
+		Math::Color color = { 1.0f,1.0f,1.0f,m_data.m_alpha};
+		if (damageDelay > 0)color = { 1.0f,0.5f,0.5f,m_data.m_alpha };
+
+		Math::Rectangle m_srcRect = { 0,0,(long)m_data.SIZE.x,(long)m_data.SIZE.y };
+
+		SHADER.m_spriteShader.SetMatrix(m_data.m_mat);
+
+		if (damageDelay > 0 && damageDelay % 3)
+		{
+
+			Math::Color a_color = { 1.0f,0.7f,0.7f,m_data.m_alpha};
+			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &a_color, Math::Vector2(0.5f, 0.5f));
+
+		}
+		else
+		{
+
+			SHADER.m_spriteShader.DrawTex(m_data.m_pTex, 0, 0, m_data.SIZE.x, m_data.SIZE.y, &m_srcRect, &color, Math::Vector2(0.5f, 0.5f));
+
+		}
+	}
+
 
 	for (int i = 0; i < m_bullet.size(); i++)
 	{
@@ -113,8 +139,8 @@ void C_BaseObject::HitCheckBullet(C_SceneGame* a_pOwner)
 			{
 				MakeHit(*a_pOwner->GetPlayer()->GetBulletData(i));
 			}
-			MakeBom();
 			SetHP(1);
+			damageDelay = MAX_DELAY;
 			//“–‚½‚Á‚Ä‚¢‚½‚ç“G‚Æ’e‚ðÁ‚·
 			a_pOwner->GetPlayer()->SetBulletAlive(false, i);
 			a_pOwner->SetScore(1000);

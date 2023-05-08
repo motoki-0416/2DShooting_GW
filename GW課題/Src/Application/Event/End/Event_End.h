@@ -16,7 +16,6 @@ public:
 	void Update()override;
 	void Draw()override;
 
-	void SetTex(Scene* a_pOwner)override;
 private:
 
 	KdTexture* m_tex;

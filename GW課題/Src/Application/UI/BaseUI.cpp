@@ -5,14 +5,9 @@ void C_BaseUI::Init()
 {
 }
 
-
-
-
 void C_BaseUI::Update(C_SceneGame* a_pOwner)
 {
 }
-
-
 
 void C_BaseUI::Draw()
 {

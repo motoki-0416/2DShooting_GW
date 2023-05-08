@@ -29,6 +29,7 @@ public:
 	~C_BaseScene() {  }
 
 	virtual void Init(Scene* a_pOwner);
+	virtual void Init(Scene* a_pOwner, bool a_flg);
 	virtual void Update();
 	virtual void Draw();
 	
@@ -41,6 +42,7 @@ public:
 	shared_ptr<C_BlackOut> GetBlackOutData() { return m_blackOut; }
 	SceneType GetType() { return m_sceneType; }
 	bool GetSceneChange() { return sceneChange; }
+	bool GetAnyFlg() { return anyFlg; }
 
 	virtual int GetScore() { return score; }
 	virtual int GetEnemyDed() { return enemyDedNum; }
@@ -49,6 +51,7 @@ public:
 
 protected:
 
+	bool anyFlg;
 
 	int score;
 	int enemyDedNum;

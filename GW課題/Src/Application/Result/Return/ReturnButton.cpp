@@ -11,7 +11,7 @@ void C_ReturnButton::Init(Scene* a_pOwner)
 	m_titleBack = make_shared<BASE>();
 	m_titleBack->SIZE = { 164,82,0 };
 	m_titleBack->HALF_SIZE = m_titleBack->SIZE / 2;
-	m_titleBack->m_pos = { -130.0f,-200.0f,0.0f };
+	m_titleBack->m_pos = { -130.0f,-260.0f,0.0f };
 	m_titleBack->m_alpha = 0.0f;
 	m_titleBack->m_mat = {};
 	m_titleBack->m_pTex = &a_pOwner->GetTex()->result_TitleTex;
@@ -20,7 +20,7 @@ void C_ReturnButton::Init(Scene* a_pOwner)
 	m_retry = make_shared<BASE>();
 	m_retry->SIZE = { 157,82,0 };
 	m_retry->HALF_SIZE = m_retry->SIZE / 2;
-	m_retry->m_pos = { 130.0f,-200.0f,0.0f };
+	m_retry->m_pos = { 130.0f,-260.0f,0.0f };
 	m_retry->m_alpha = 0.0f;
 	m_retry->m_mat = {};
 	m_retry->m_pTex = &a_pOwner->GetTex()->result_RetryTex;
